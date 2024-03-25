@@ -3,6 +3,8 @@
 
 # ConfidenceEllipse
 
+<img src="man/figures/logo.png" align="right" height="239" alt="" />
+
 <!-- badges: start -->
 
 [![License:
