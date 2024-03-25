@@ -4,6 +4,9 @@
 # ConfidenceEllipse
 
 <!-- badges: start -->
+
+[![License:
+MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 <!-- badges: end -->
 
 The objective of the `ConfidenceEllipse` package is to compute the
