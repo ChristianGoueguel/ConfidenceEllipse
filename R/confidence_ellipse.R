@@ -16,8 +16,8 @@ confidence_ellipse <- function(data, x = NULL, y = NULL, conf_level = 0.95, by_g
   require(forcats)
   require(magrittr)
 
-  x <- enquo(x)
-  y <- enquo(y)
+  x <- as.numeric(x)
+  y <- as.numeric(y)
 
   # check input validity
   if (missing(data)) {
@@ -26,10 +26,7 @@ confidence_ellipse <- function(data, x = NULL, y = NULL, conf_level = 0.95, by_g
   if (!is.data.frame(data) && !tibble::is_tibble(data)) {
     stop("Input 'data' must be a data frame or tibble.")
   }
-  # if (sum(map_lgl(data, is.numeric)) != 2) {
-  #   stop("Input 'data' must have exactly two numeric columns.")
-  # }
-  if (quo_is_null(x) && quo_is_null(y)) {
+  if (is.null(x) && is.null(y)) {
     stop("Either 'x' or 'y' argument must be specified.")
   }
   if (!(x %in% colnames(data) && y %in% colnames(data))) {
@@ -63,7 +60,7 @@ confidence_ellipse <- function(data, x = NULL, y = NULL, conf_level = 0.95, by_g
 
   if (by_group == FALSE) {
     X_mat <- data %>%
-      select(!!x, !!y) %>%
+      select(x, y) %>%
       as.matrix()
 
     Y <- transform_data(X_mat, conf_level)
