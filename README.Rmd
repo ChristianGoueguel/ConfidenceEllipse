@@ -38,6 +38,8 @@ You can install the development version of `ConfidenceEllipse` like so:
 ```{r message=FALSE, warning=FALSE, include=FALSE}
 library(tidyverse)
 library(magrittr)
+library(patchwork)
+devtools::load_all()
 ```
 
 ### Dataset
@@ -58,29 +60,62 @@ df <-
   cbind(glass.grp, glass) %>%
   as_tibble() %>%
   rename(group = glass.grp) %>%
-  modify_at("group", as_factor)
+  modify_at("group", as_factor) %>%
+  print()
 ```
 
 ```{r}
-df %>%
+plot1 <- df %>%
   ggplot() +
-  aes(x = MgO, y = Cl, colour = group, shape = group) +
-  geom_point(size = 3L) +
+  aes(x = MgO, y = Cl) +
+  geom_point(colour = "black", size = 3L) +
+  xlim(0, 6) +
+  ylim(-0.05, 1.5) +
   scale_color_brewer(palette = "Set1", direction = 1) +
-  labs(
-    x = "MgO (wt.%)",
-    y = "Cl (wt.%)",
-    caption = "FIG. 1: Concentrations of MgO and Cl in glass vessels (Janssen et al. 1998.)") +
+  labs(x = "MgO (wt.%)", y = "Cl (wt.%)") +
   theme_bw() +
-  theme(
-    legend.position = "none",
-    panel.grid = element_blank()
-    )
+  theme(legend.position = "none", panel.grid = element_blank())
 ```
 
+```{r message=FALSE, warning=FALSE}
+ellipse <- confidence_ellipse(df, x = MgO, y = Cl)
+```
 
+```{r}
+plot2 <- 
+  ggplot() +
+  geom_point(data = ellipse, aes(x = x, y = y), colour = "red", size = .1) +
+  geom_point(dat = df, aes(x = MgO, y = Cl), colour = "black", size = 3L) +
+  xlim(0, 6) +
+  ylim(-0.05, 1.5) +
+  scale_color_brewer(palette = "Set1", direction = 1) +
+  labs(x = "MgO (wt.%)", y = "Cl (wt.%)") +
+  theme_bw() +
+  theme(legend.position = "none", panel.grid = element_blank())
+```
 
+```{r}
+wrap_plots(plot1, plot2)
+```
 
+```{r message=FALSE, warning=FALSE}
+ellipse_grp <- confidence_ellipse(df, x = MgO, y = Cl, by_group = TRUE)
+```
 
+```{r}
+plot3 <- 
+  ggplot() +
+  geom_point(dat = df, aes(x = MgO, y = Cl, colour = group, shape = group), size = 3L) +
+  geom_line(data = ellipse_grp, aes(x = x, y = y, colour = group), linewidth = .1) +
+  xlim(0, 6) +
+  ylim(-0.05, 1.5) +
+  scale_color_brewer(palette = "Set1", direction = 1) +
+  labs(x = "MgO (wt.%)", y = "Cl (wt.%)") +
+  theme_bw() +
+  theme(legend.position = "none", panel.grid = element_blank())
+```
 
+```{r}
+wrap_plots(plot1, plot3)
+```
 
