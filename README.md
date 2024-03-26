@@ -68,6 +68,15 @@ df <-
 #> # ℹ 1 more variable: PbO <dbl>
 ```
 
+### Confidence Ellipse
+
+First, the `confidence_ellipse` function is used to compute coordinate
+points of the confidence ellipse and then the ellipse is plotted on a
+two-dimensional plot `x` and `y` of the data. Points that lie outside
+the ellipse are considered to be outliers, while points that lie within
+the ellipse are considered to be part of the underlying distribution
+with the specified confidence level `conf_level`.
+
 ``` r
 plot1 <- df %>%
   ggplot() +
@@ -107,6 +116,10 @@ wrap_plots(plot1, plot2)
 ```
 
 <img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" />
+
+### Grouping
+
+In case of grouping data, one needs to set `by_group = TRUE`.
 
 ``` r
 ellipse_grp <- confidence_ellipse(df, x = MgO, y = Cl, by_group = TRUE)
