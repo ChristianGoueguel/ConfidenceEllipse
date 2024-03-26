@@ -72,8 +72,8 @@ df <-
 plot1 <- df %>%
   ggplot() +
   aes(x = MgO, y = Cl) +
-  geom_point(colour = "black", size = 3L) +
-  xlim(0, 6) +
+  geom_point(color = "black", size = 3L) +
+  xlim(-.5, 6) +
   ylim(-0.05, 1.5) +
   scale_color_brewer(palette = "Set1", direction = 1) +
   labs(x = "MgO (wt.%)", y = "Cl (wt.%)") +
@@ -82,15 +82,19 @@ plot1 <- df %>%
 ```
 
 ``` r
-ellipse <- confidence_ellipse(df, x = MgO, y = Cl)
+ellipse_99 <- confidence_ellipse(df, x = MgO, y = Cl, conf_level = 0.99)
+ellipse_95 <- confidence_ellipse(df, x = MgO, y = Cl, conf_level = 0.95)
+ellipse_90 <- confidence_ellipse(df, x = MgO, y = Cl, conf_level = 0.90)
 ```
 
 ``` r
 plot2 <- 
   ggplot() +
-  geom_point(data = ellipse, aes(x = x, y = y), colour = "red", size = .1) +
-  geom_point(dat = df, aes(x = MgO, y = Cl), colour = "black", size = 3L) +
-  xlim(0, 6) +
+  geom_point(data = ellipse_99, aes(x = x, y = y), color = "red", size = .1) +
+  geom_point(data = ellipse_95, aes(x = x, y = y), color = "blue", size = .1) +
+  geom_point(data = ellipse_90, aes(x = x, y = y), color = "green", size = .1) +
+  geom_point(dat = df, aes(x = MgO, y = Cl), color = "black", size = 3L) +
+  xlim(-.5, 6) +
   ylim(-0.05, 1.5) +
   scale_color_brewer(palette = "Set1", direction = 1) +
   labs(x = "MgO (wt.%)", y = "Cl (wt.%)") +
