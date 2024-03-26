@@ -119,3 +119,51 @@ plot3 <-
 wrap_plots(plot1, plot3)
 ```
 
+```{r}
+rpca_scores <- df %>% 
+  select(where(is.numeric) )%>% 
+  pcaPP::PCAproj(method = "qn") %>%
+  pluck("scores") %>%
+  as_tibble() %>%
+  mutate(group = df %>% pull(group)) %>%
+  rename(PC1 = Comp.1, PC2 = Comp.2) 
+```
+
+```{r message=FALSE, warning=FALSE}
+ellipse_pca <- rpca_scores %>%
+confidence_ellipse(x = PC1, y = PC2, by_group = TRUE)
+```
+
+```{r}
+plot4 <- 
+  ggplot() +
+  geom_point(dat = rpca_scores, aes(x = PC1, y = PC2, colour = group, shape = group), size = 3L) +
+  geom_line(data = ellipse_pca, aes(x = x, y = y, colour = group), linewidth = .1) +
+  scale_color_brewer(palette = "Set1", direction = 1) +
+  labs(x = "PC1", y = "PC2") +
+  theme_bw() +
+  theme(legend.position = "none", panel.grid = element_blank())
+```
+
+```{r}
+plot4
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
