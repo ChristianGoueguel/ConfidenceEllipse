@@ -119,7 +119,25 @@ wrap_plots(plot1, plot2)
 
 ### Grouping
 
-In case of grouping data, one needs to set `by_group = TRUE`.
+Here, we consider situations in which the data are stratified in four
+samples by a factor (“group”) that might correspond to different glass
+proprieties. In that case, one needs to set `by_group = TRUE`.
+
+There are two ways to interpret the ellipses: as confidence curves for
+bivariate normal distributions and as indicators of correlation. As
+confidence curves, the ellipses show where the specified percentage of
+the data should lie, assuming a bivariate normal distribution. Under
+bivariate normality, the percentage of observations falling inside the
+ellipse should closely agree with the specified confidence level. You
+can examine the effect of increasing or decreasing the confidence level
+by adjusting the slider in the Confidence Ellipses table below the
+scatter plot matrix. Confidence ellipses can also serve as visual
+indicators of correlations. The confidence ellipse collapses diagonally
+as the correlation between two variables approaches 1 or -1. The
+confidence ellipse is more circular when two variables are uncorrelated.
+
+(Moore, D.S. and McCabe, G.P. (1989), Introduce of the Practice of
+Statistics)
 
 ``` r
 ellipse_grp <- confidence_ellipse(df, x = MgO, y = Cl, by_group = TRUE)
@@ -167,7 +185,7 @@ plot4 <-
   scale_color_brewer(palette = "Set1", direction = 1) +
   labs(x = "PC1", y = "PC2") +
   theme_bw() +
-  theme(legend.position = "none", panel.grid = element_blank())
+  theme(legend.position = "none")
 ```
 
 ``` r

@@ -158,7 +158,7 @@ plot4 <-
   scale_color_brewer(palette = "Set1", direction = 1) +
   labs(x = "PC1", y = "PC2") +
   theme_bw() +
-  theme(legend.position = "none", panel.grid = element_blank())
+  theme(legend.position = "none")
 ```
 
 ```{r}
