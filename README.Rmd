@@ -114,7 +114,7 @@ wrap_plots(plot1, plot2)
 
 ### Grouping
 
-Here, we consider situations in which the data are stratified in four samples by a factor (“group”) that might correspond to different glass proprieties. In that case, one needs to set `by_group = TRUE`.
+Here, we consider the scenarios where the dataset is segmented into four distinct subsets, differentiated by a factor variable. This stratification potentially represents various properties of glass. In that case, one needs to set `by_group = TRUE`.
 
 ```{r message=FALSE, warning=FALSE}
 ellipse_grp <- confidence_ellipse(df, x = MgO, y = Cl, by_group = TRUE)
