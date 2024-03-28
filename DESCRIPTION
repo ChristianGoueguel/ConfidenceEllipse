@@ -16,7 +16,6 @@ Imports:
     magrittr,
     pcaPP,
     purrr,
-    rlang,
     stats,
     tibble,
     tidyr,

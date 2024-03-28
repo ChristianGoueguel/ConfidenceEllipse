@@ -45,9 +45,9 @@ confidence_ellipse <- function(data, x = NULL, y = NULL, conf_level = 0.95, by_g
       dplyr::select({{x}}, {{y}}) %>%
       as.matrix()
     res <- transform_data(X_mat, conf_level)
-    res %<>%
+    ellipse_coord <- res %>%
       tibble::as_tibble() %>%
-      dplyr::rename(x = rlang::.data$V1, y = rlang::.data$V2)
+      dplyr::rename(x = V1, y = V2)
   } else {
     X_tbl <- data
     factor_col <- X_tbl %>%
@@ -69,12 +69,12 @@ confidence_ellipse <- function(data, x = NULL, y = NULL, conf_level = 0.95, by_g
       Y_grp <- cbind(Y_grp, replicate(361, nested_tbl$group[i]))
       res[seq(1+(361*(i-1)), 361*i), ] <- Y_grp
     }
-    res %<>%
+    ellipse_coord <- res %>%
       tibble::as_tibble() %>%
-      dplyr::rename(x = rlang::.data$V1, y = rlang::.data$V2, group = rlang::.data$V3) %>%
+      dplyr::rename(x = V1, y = V2, group = V3) %>%
       purrr::modify_at("group", forcats::as_factor)
   }
-  return(res)
+  return(ellipse_coord)
 }
 
 
