@@ -4,7 +4,7 @@
 ## usethis namespace: start
 #' @importFrom magrittr %<>%
 #' @importFrom pcaPP PCAproj
+#' @importFrom rlang .data
 #' @importFrom tidyselect where
-#' @importFrom utils globalVariables
 ## usethis namespace: end
 NULL

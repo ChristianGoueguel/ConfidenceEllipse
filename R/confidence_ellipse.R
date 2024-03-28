@@ -44,10 +44,9 @@ confidence_ellipse <- function(data, x = NULL, y = NULL, conf_level = 0.95, by_g
     X_mat <- data %>%
       dplyr::select({{x}}, {{y}}) %>%
       as.matrix()
-    res <- transform_data(X_mat, conf_level)
-    ellipse_coord <- res %>%
-      tibble::as_tibble() %>%
-      dplyr::rename(x = V1, y = V2)
+    ellipse_coord <- transform_data(X_mat, conf_level)
+    colnames(ellipse_coord) <- c("x","y")
+    ellipse_coord %<>% tibble::as_tibble()
   } else {
     X_tbl <- data
     factor_col <- X_tbl %>%
@@ -59,7 +58,7 @@ confidence_ellipse <- function(data, x = NULL, y = NULL, conf_level = 0.95, by_g
       dplyr::select({{x}}, {{y}}) %>%
       tidyr::nest() %>%
       dplyr::ungroup()
-    res <- matrix(0, nrow = 361*length(nested_tbl$data), ncol = 3)
+    ellipse_coord <- matrix(0, nrow = 361*length(nested_tbl$data), ncol = 3)
     for (i in seq_along(nested_tbl$data)) {
       grouped_tbl <- nested_tbl %>%
         purrr::pluck(2, i) %>%
@@ -67,11 +66,11 @@ confidence_ellipse <- function(data, x = NULL, y = NULL, conf_level = 0.95, by_g
         as.matrix()
       Y_grp <- transform_data(grouped_tbl, conf_level)
       Y_grp <- cbind(Y_grp, replicate(361, nested_tbl$group[i]))
-      res[seq(1+(361*(i-1)), 361*i), ] <- Y_grp
+      ellipse_coord[seq(1+(361*(i-1)), 361*i), ] <- Y_grp
     }
-    ellipse_coord <- res %>%
+    colnames(ellipse_coord) <- c("x", "y", "group")
+    ellipse_coord %<>%
       tibble::as_tibble() %>%
-      dplyr::rename(x = V1, y = V2, group = V3) %>%
       purrr::modify_at("group", forcats::as_factor)
   }
   return(ellipse_coord)
