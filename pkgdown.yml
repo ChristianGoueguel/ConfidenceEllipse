@@ -2,7 +2,7 @@ pandoc: 3.1.11
 pkgdown: 2.0.7
 pkgdown_sha: ~
 articles: {}
-last_built: 2024-03-28T22:34Z
+last_built: 2024-03-28T22:42Z
 urls:
   reference: https://christiangoueguel.github.io/ConfidenceEllipse/reference
   article: https://christiangoueguel.github.io/ConfidenceEllipse/articles
