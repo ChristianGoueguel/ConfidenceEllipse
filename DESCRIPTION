@@ -21,3 +21,4 @@ Imports:
     tidyr,
     tidyselect
 Roxygen: list(markdown = TRUE)
+URL: https://christiangoueguel.github.io/ConfidenceEllipse/
