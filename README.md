@@ -87,7 +87,7 @@ plot1 <- df %>%
   scale_color_brewer(palette = "Set1", direction = 1) +
   labs(x = "MgO (wt.%)", y = "Cl (wt.%)") +
   theme_bw() +
-  theme(legend.position = "none", panel.grid = element_blank())
+  theme(legend.position = "none")
 ```
 
 ``` r
@@ -108,14 +108,14 @@ plot2 <-
   scale_color_brewer(palette = "Set1", direction = 1) +
   labs(x = "MgO (wt.%)", y = "Cl (wt.%)") +
   theme_bw() +
-  theme(legend.position = "none", panel.grid = element_blank())
+  theme(legend.position = "none")
 ```
 
 ``` r
 wrap_plots(plot1, plot2)
 ```
 
-<img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-9-1.png" width="100%" />
 
 ### Grouping
 
@@ -153,14 +153,14 @@ plot3 <-
   scale_color_brewer(palette = "Set1", direction = 1) +
   labs(x = "MgO (wt.%)", y = "Cl (wt.%)") +
   theme_bw() +
-  theme(legend.position = "none", panel.grid = element_blank())
+  theme(legend.position = "none")
 ```
 
 ``` r
 wrap_plots(plot1, plot3)
 ```
 
-<img src="man/figures/README-unnamed-chunk-11-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-12-1.png" width="100%" />
 
 ``` r
 rpca_scores <- df %>% 
@@ -192,4 +192,4 @@ plot4 <-
 plot4
 ```
 
-<img src="man/figures/README-unnamed-chunk-15-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-16-1.png" width="100%" />

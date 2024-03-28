@@ -28,7 +28,7 @@ The objective of the `ConfidenceEllipse` package is to compute the confidence el
 
 You can install the development version of `ConfidenceEllipse` like so:
 
-``` r
+```{r}
 # install.packages("remotes")
 # remotes::install_github("ChristianGoueguel/ConfidenceEllipse")
 ```
@@ -78,7 +78,7 @@ plot1 <- df %>%
   scale_color_brewer(palette = "Set1", direction = 1) +
   labs(x = "MgO (wt.%)", y = "Cl (wt.%)") +
   theme_bw() +
-  theme(legend.position = "none", panel.grid = element_blank())
+  theme(legend.position = "none")
 ```
 
 ```{r message=FALSE, warning=FALSE}
@@ -99,7 +99,7 @@ plot2 <-
   scale_color_brewer(palette = "Set1", direction = 1) +
   labs(x = "MgO (wt.%)", y = "Cl (wt.%)") +
   theme_bw() +
-  theme(legend.position = "none", panel.grid = element_blank())
+  theme(legend.position = "none")
 ```
 
 ```{r}
@@ -128,7 +128,7 @@ plot3 <-
   scale_color_brewer(palette = "Set1", direction = 1) +
   labs(x = "MgO (wt.%)", y = "Cl (wt.%)") +
   theme_bw() +
-  theme(legend.position = "none", panel.grid = element_blank())
+  theme(legend.position = "none")
 ```
 
 ```{r}
