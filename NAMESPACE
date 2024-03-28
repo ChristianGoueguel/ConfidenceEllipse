@@ -2,4 +2,8 @@
 
 export("%>%")
 export(confidence_ellipse)
+importFrom(magrittr,"%<>%")
 importFrom(magrittr,"%>%")
+importFrom(pcaPP,PCAproj)
+importFrom(tidyselect,where)
+importFrom(utils,globalVariables)

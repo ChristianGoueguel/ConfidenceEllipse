@@ -154,7 +154,7 @@ wrap_plots(plot1, plot3)
 ``` r
 rpca_scores <- df %>% 
   select(where(is.numeric) )%>% 
-  pcaPP::PCAproj(method = "qn") %>%
+  PCAproj(method = "qn") %>%
   pluck("scores") %>%
   as_tibble() %>%
   mutate(group = df %>% pull(group)) %>%

@@ -10,12 +10,6 @@
 #' @export confidence_ellipse
 confidence_ellipse <- function(data, x = NULL, y = NULL, conf_level = 0.95, by_group = FALSE) {
 
-  require(dplyr)
-  require(tidyr)
-  require(purrr)
-  require(forcats)
-  require(magrittr)
-
   if (missing(data)) {
     stop("Missing 'data' argument.")
   }
@@ -31,54 +25,54 @@ confidence_ellipse <- function(data, x = NULL, y = NULL, conf_level = 0.95, by_g
   if(!is.logical(by_group)) {
     stop("'by_group' must be of boolean type (TRUE or FALSE).")
   }
-  if (sum(map_lgl(data, is.factor)) != 1) {
+  if (sum(purrr::map_lgl(data, is.factor)) != 1) {
     stop("Input 'data' must have one factor column as grouping variable.")
   }
 
   transform_data <- function(.x, conf_level) {
     mean_vec <- colMeans(.x)
-    cov_mat <- cov(.x)
+    cov_mat <- stats::cov(.x)
     eig <- eigen(cov_mat)
     theta <- (2*pi*seq(0, 360, 1))/360
-    B1 <- sqrt(eig$values[1]*qchisq(conf_level, 2)) * cos(theta)
-    B2 <- sqrt(eig$values[2]*qchisq(conf_level, 2)) * sin(theta)
+    B1 <- sqrt(eig$values[1]*stats::qchisq(conf_level, 2)) * cos(theta)
+    B2 <- sqrt(eig$values[2]*stats::qchisq(conf_level, 2)) * sin(theta)
     R <- cbind(B1, B2) %*% t(eig$vectors)
     C <- R + matrix(rep(t(mean_vec), 361), ncol = ncol(t(mean_vec)), byrow = TRUE)
     return(C)
   }
   if (by_group == FALSE) {
     X_mat <- data %>%
-      select({{x}}, {{y}}) %>%
+      dplyr::select({{x}}, {{y}}) %>%
       as.matrix()
     res <- transform_data(X_mat, conf_level)
     res %<>%
-      as_tibble() %>%
-      rename(x = V1, y = V2)
+      tibble::as_tibble() %>%
+      dplyr::rename(x = rlang::.data$V1, y = rlang::.data$V2)
   } else {
     X_tbl <- data
     factor_col <- X_tbl %>%
-      select(where(is.factor)) %>%
+      dplyr::select(tidyselect::where(is.factor)) %>%
       names() %>%
-      sym()
+      dplyr::sym()
     nested_tbl <- X_tbl %>%
-      group_by(!!sym(factor_col)) %>%
-      select({{x}}, {{y}}) %>%
-      nest() %>%
-      ungroup()
+      dplyr::group_by(!!dplyr::sym(factor_col)) %>%
+      dplyr::select({{x}}, {{y}}) %>%
+      tidyr::nest() %>%
+      dplyr::ungroup()
     res <- matrix(0, nrow = 361*length(nested_tbl$data), ncol = 3)
     for (i in seq_along(nested_tbl$data)) {
       grouped_tbl <- nested_tbl %>%
-        pluck(2, i) %>%
-        select(where(is.numeric)) %>%
+        purrr::pluck(2, i) %>%
+        dplyr::select(tidyselect::where(is.numeric)) %>%
         as.matrix()
       Y_grp <- transform_data(grouped_tbl, conf_level)
       Y_grp <- cbind(Y_grp, replicate(361, nested_tbl$group[i]))
       res[seq(1+(361*(i-1)), 361*i), ] <- Y_grp
     }
     res %<>%
-      as_tibble() %>%
-      rename(x = V1, y = V2, group = V3) %>%
-      modify_at("group", as_factor)
+      tibble::as_tibble() %>%
+      dplyr::rename(x = rlang::.data$V1, y = rlang::.data$V2, group = rlang::.data$V3) %>%
+      purrr::modify_at("group", forcats::as_factor)
   }
   return(res)
 }

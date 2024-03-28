@@ -11,5 +11,14 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.3.1
 Imports: 
-    magrittr
+    dplyr,
+    forcats,
+    magrittr,
+    pcaPP,
+    purrr,
+    rlang,
+    stats,
+    tibble,
+    tidyr,
+    tidyselect
 Roxygen: list(markdown = TRUE)
