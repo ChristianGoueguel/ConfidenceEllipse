@@ -56,6 +56,7 @@ confidence_ellipse <- function(.data, x, y, .group_by = NULL, conf_level = 0.95)
         tidyr::nest() %>%
         dplyr::ungroup()
 
+      data <- NULL
       ellipse_tbl<- nested_tbl %>%
         dplyr::mutate(data = purrr::map(data, ~ transform_data(as.matrix(.x), conf_level))) %>%
         tidyr::unnest(data)
@@ -63,7 +64,7 @@ confidence_ellipse <- function(.data, x, y, .group_by = NULL, conf_level = 0.95)
       ellipse_coord <- tibble::tibble(
         x = ellipse_tbl$data[, 1],
         y = ellipse_tbl$data[, 2]) %>%
-        dplyr::bind_cols(ellipse_tbl[1], .)
+        dplyr::bind_cols(ellipse_tbl[1])
     }
   }
   return(ellipse_coord)

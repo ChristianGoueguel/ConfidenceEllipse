@@ -4,11 +4,11 @@
 \name{ConfidenceEllipse-package}
 \alias{ConfidenceEllipse}
 \alias{ConfidenceEllipse-package}
-\title{ConfidenceEllipse: This Package is for Adding Confidence Ellipse to a Given 2D Scatter Plot}
+\title{ConfidenceEllipse: Confidence Ellipse Coordinates for Bivariate Normal Data}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-More about what it does (maybe more than one line) Use four spaces when indenting paragraphs within the Description.
+This package provided a function to calculate confidence ellipse, based on the assumption of bivariate normality, for a given confidence level.
 }
 \seealso{
 Useful links:
