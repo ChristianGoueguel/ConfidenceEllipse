@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://christiangoueguel.github.io/ConfidenceEllipse/404.html</loc>
+    <loc>/404.html</loc>
   </url>
   <url>
-    <loc>https://christiangoueguel.github.io/ConfidenceEllipse/LICENSE-text.html</loc>
+    <loc>/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>https://christiangoueguel.github.io/ConfidenceEllipse/LICENSE.html</loc>
+    <loc>/LICENSE.html</loc>
   </url>
   <url>
-    <loc>https://christiangoueguel.github.io/ConfidenceEllipse/authors.html</loc>
+    <loc>/authors.html</loc>
   </url>
   <url>
-    <loc>https://christiangoueguel.github.io/ConfidenceEllipse/index.html</loc>
+    <loc>/index.html</loc>
   </url>
   <url>
-    <loc>https://christiangoueguel.github.io/ConfidenceEllipse/news/index.html</loc>
+    <loc>/news/index.html</loc>
   </url>
   <url>
-    <loc>https://christiangoueguel.github.io/ConfidenceEllipse/reference/ConfidenceEllipse-package.html</loc>
+    <loc>/reference/ConfidenceEllipse-package.html</loc>
   </url>
   <url>
-    <loc>https://christiangoueguel.github.io/ConfidenceEllipse/reference/confidence_ellipse.html</loc>
+    <loc>/reference/confidence_ellipse.html</loc>
   </url>
   <url>
-    <loc>https://christiangoueguel.github.io/ConfidenceEllipse/reference/index.html</loc>
+    <loc>/reference/index.html</loc>
   </url>
   <url>
-    <loc>https://christiangoueguel.github.io/ConfidenceEllipse/reference/pipe.html</loc>
+    <loc>/reference/pipe.html</loc>
   </url>
 </urlset>
