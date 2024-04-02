@@ -4,27 +4,21 @@
 \alias{confidence_ellipse}
 \title{A Function that Computes the Confidence Ellipse Coordinates for Bivariate Normal Data (with Optional Grouping)}
 \usage{
-confidence_ellipse(
-  data,
-  x = NULL,
-  y = NULL,
-  conf_level = 0.95,
-  by_group = FALSE
-)
+confidence_ellipse(.data, x, y, .group_by = NULL, conf_level = 0.95)
 }
 \arguments{
-\item{data}{the data frame or tibble.}
+\item{.data}{The data frame or tibble.}
 
-\item{x}{the x-axis column name.}
+\item{x}{The unquoted column name for the x-axis variable.}
 
-\item{y}{the y-axis column name.}
+\item{y}{The unquoted column name for the y-axis variable.}
 
-\item{conf_level}{the confidence level for the ellipse (0.95 by default).}
+\item{.group_by}{The unquoted column name for the grouping variable (optional). Note that this grouping variable must be a factor}
 
-\item{by_group}{for grouping the bivariate data, if it contains a grouping third column (FALSE by default). Note that this third column must be a factor.}
+\item{conf_level}{The confidence level for the ellipse (0.95 by default).}
 }
 \value{
-a data frame of the coordinates points of the ellipse.
+A data frame of the coordinates points of the ellipse.
 }
 \description{
 This function computes a confidence ellipse (assuming bivariate normality) at a specified confidence level.

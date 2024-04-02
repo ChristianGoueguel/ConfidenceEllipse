@@ -1,21 +1,20 @@
 Package: ConfidenceEllipse
 Type: Package
-Title: This Package is for Adding Confidence Ellipse to a Given 2D Scatter Plot
+Title: Confidence Ellipse Coordinates for Bivariate Normal Data
 Version: 0.1.0
 Author: Christian L. Goueguel
 Maintainer: Christian L. Goueguel <christian.goueguel@gmail.com>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Description: This package provided a function to calculate confidence ellipse, based on the assumption of bivariate normality, for a given confidence level.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.3.1
 Imports: 
     dplyr,
-    forcats,
     magrittr,
     pcaPP,
     purrr,
+    rlang,
     stats,
     tibble,
     tidyr,
