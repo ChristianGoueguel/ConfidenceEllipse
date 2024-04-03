@@ -54,23 +54,27 @@ df <-
   cbind(glass.grp, glass) %>%
   as_tibble() %>%
   rename(glassType = glass.grp) %>%
-  modify_at("glassType", as_factor) %>%
-  print()
-#> # A tibble: 180 × 14
-#>    glassType  Na2O   MgO Al2O3  SiO2  P2O5   SO3    Cl   K2O   CaO   MnO Fe2O3
-#>    <fct>     <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
-#>  1 1          13.9  2.24  1.31  67.8 0.884 0.052 0.936  3.04  8.78 0.674 0.364
-#>  2 1          14.2  2.18  1.31  67.1 0.938 0.024 0.966  3.40  8.64 0.698 0.336
-#>  3 1          14.7  3.03  1.36  63.3 0.988 0.064 0.886  2.83 11.1  1.24  0.4  
-#>  4 1          14.8  2.46  1.38  63.8 1.2   0.115 0.988  2.88 10.8  0.978 0.433
-#>  5 1          14.1  2.48  1.07  68.8 0.682 0.07  0.966  2.40  8.81 0.31  0.242
-#>  6 1          13.6  1.65  2.01  69.6 0.698 0.038 0.908  3.20  6.16 1.17  0.65 
-#>  7 1          12.9  2.69  1.42  64.0 0.966 0.046 0.896  2.53 13.0  0.874 0.516
-#>  8 1          15.7  2.03  1.24  70.6 0.21  0.31  0.676  2.33  6.32 0.214 0.278
-#>  9 1          13.9  2.26  1.07  68.3 0.75  0.037 0.935  2.32  9.44 0.605 0.25 
-#> 10 1          17.2  1.47  1.66  66.0 0.838 0.096 1.06   3.42  6.36 1.29  0.5  
-#> # ℹ 170 more rows
-#> # ℹ 2 more variables: BaO <dbl>, PbO <dbl>
+  modify_at("glassType", as_factor)
+```
+
+``` r
+df %>% glimpse()
+#> Rows: 180
+#> Columns: 14
+#> $ glassType <fct> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, …
+#> $ Na2O      <dbl> 13.904, 14.194, 14.668, 14.800, 14.078, 13.600, 12.942, 15.6…
+#> $ MgO       <dbl> 2.244, 2.184, 3.034, 2.455, 2.480, 1.648, 2.690, 2.028, 2.25…
+#> $ Al2O3     <dbl> 1.312, 1.310, 1.362, 1.385, 1.072, 2.012, 1.420, 1.242, 1.07…
+#> $ SiO2      <dbl> 67.752, 67.076, 63.254, 63.790, 68.768, 69.628, 64.012, 70.6…
+#> $ P2O5      <dbl> 0.884, 0.938, 0.988, 1.200, 0.682, 0.698, 0.966, 0.210, 0.75…
+#> $ SO3       <dbl> 0.052, 0.024, 0.064, 0.115, 0.070, 0.038, 0.046, 0.310, 0.03…
+#> $ Cl        <dbl> 0.936, 0.966, 0.886, 0.988, 0.966, 0.908, 0.896, 0.676, 0.93…
+#> $ K2O       <dbl> 3.044, 3.396, 2.828, 2.878, 2.402, 3.196, 2.526, 2.326, 2.32…
+#> $ CaO       <dbl> 8.784, 8.636, 11.088, 10.833, 8.808, 6.160, 12.982, 6.324, 9…
+#> $ MnO       <dbl> 0.674, 0.698, 1.240, 0.978, 0.310, 1.170, 0.874, 0.214, 0.60…
+#> $ Fe2O3     <dbl> 0.364, 0.336, 0.400, 0.433, 0.242, 0.650, 0.516, 0.278, 0.25…
+#> $ BaO       <dbl> 0.040, 0.040, 0.046, 0.025, 0.022, 0.156, 0.014, 0.032, 0.02…
+#> $ PbO       <dbl> 0.004, 0.198, 0.134, 0.120, 0.102, 0.136, 0.120, 0.062, 0.02…
 ```
 
 ### Confidence Ellipse
@@ -83,44 +87,21 @@ the ellipse are considered to be part of the underlying distribution
 with the specified confidence level `conf_level`.
 
 ``` r
-plot1 <- df %>%
-  ggplot() +
-  aes(x = MgO, y = Cl) +
-  geom_point(color = "black", size = 3L) +
-  xlim(-.5, 6) +
-  ylim(-0.05, 1.5) +
-  scale_color_brewer(palette = "Set1", direction = 1) +
-  labs(x = "MgO (wt.%)", y = "Cl (wt.%)") +
-  theme_bw() +
-  theme(legend.position = "none")
-```
-
-``` r
-ellipse_99 <- confidence_ellipse(df, x = MgO, y = Cl, conf_level = 0.99) %>% print()
-#> # A tibble: 361 × 2
-#>         x     y
-#>     <dbl> <dbl>
-#>  1 -0.138 0.770
-#>  2 -0.138 0.759
-#>  3 -0.138 0.748
-#>  4 -0.137 0.737
-#>  5 -0.135 0.726
-#>  6 -0.132 0.715
-#>  7 -0.129 0.704
-#>  8 -0.124 0.693
-#>  9 -0.119 0.681
-#> 10 -0.114 0.670
-#> # ℹ 351 more rows
-```
-
-``` r
+ellipse_99 <- confidence_ellipse(df, x = MgO, y = Cl, conf_level = 0.99)
 ellipse_95 <- confidence_ellipse(df, x = MgO, y = Cl, conf_level = 0.95)
 ellipse_90 <- confidence_ellipse(df, x = MgO, y = Cl, conf_level = 0.90)
 ```
 
 ``` r
-plot2 <- 
-  ggplot() +
+ellipse_99 %>% glimpse()
+#> Rows: 361
+#> Columns: 2
+#> $ x <dbl> -0.138094945, -0.138406455, -0.137962123, -0.136762084, -0.134806705…
+#> $ y <dbl> 0.7702743, 0.7592797, 0.7482409, 0.7371614, 0.7260445, 0.7148935, 0.…
+```
+
+``` r
+ggplot() +
   geom_point(data = ellipse_99, aes(x = x, y = y), color = "red", size = .1) +
   geom_point(data = ellipse_95, aes(x = x, y = y), color = "blue", size = .1) +
   geom_point(data = ellipse_90, aes(x = x, y = y), color = "green", size = .1) +
@@ -133,11 +114,7 @@ plot2 <-
   theme(legend.position = "none")
 ```
 
-``` r
-wrap_plots(plot1, plot2)
-```
-
-<img src="man/figures/README-unnamed-chunk-10-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-9-1.png" width="100%" />
 
 #### Grouping
 
@@ -155,26 +132,20 @@ type, you may need to convert it to a factor using functions like
 `as.factor()` or `forcats::as_factor()`.
 
 ``` r
-ellipse_grp <- df %>% confidence_ellipse(MgO, Cl, glassType) %>% print()
-#> # A tibble: 1,444 × 3
-#>        x     y glassType
-#>    <dbl> <dbl> <fct>    
-#>  1 0.568 0.676 1        
-#>  2 0.568 0.669 1        
-#>  3 0.569 0.662 1        
-#>  4 0.570 0.655 1        
-#>  5 0.572 0.648 1        
-#>  6 0.574 0.641 1        
-#>  7 0.577 0.634 1        
-#>  8 0.580 0.627 1        
-#>  9 0.584 0.620 1        
-#> 10 0.589 0.613 1        
-#> # ℹ 1,434 more rows
+ellipse_grp <- df %>% confidence_ellipse(MgO, Cl, glassType)
 ```
 
 ``` r
-plot3 <- 
-  ggplot() +
+ellipse_grp %>% glimpse()
+#> Rows: 1,444
+#> Columns: 3
+#> $ x         <dbl> 0.5675946, 0.5678922, 0.5687056, 0.5700346, 0.5718788, 0.574…
+#> $ y         <dbl> 0.6758368, 0.6688488, 0.6618660, 0.6548902, 0.6479238, 0.640…
+#> $ glassType <fct> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
+```
+
+``` r
+ggplot() +
   geom_point(dat = df, aes(x = MgO, y = Cl, colour = glassType, shape = glassType), size = 3L) +
   geom_line(data = ellipse_grp, aes(x = x, y = y, colour = glassType), linewidth = .1) +
   xlim(0, 6) +
@@ -185,11 +156,9 @@ plot3 <-
   theme(legend.position = "none")
 ```
 
-``` r
-wrap_plots(plot1, plot3)
-```
+<img src="man/figures/README-unnamed-chunk-12-1.png" width="100%" />
 
-<img src="man/figures/README-unnamed-chunk-13-1.png" width="100%" />
+#### Principal Component Analysis
 
 ``` r
 rpca_scores <- df %>%
@@ -207,8 +176,7 @@ confidence_ellipse(PC1, PC2, glassType)
 ```
 
 ``` r
-plot4 <- 
-  ggplot() +
+ggplot() +
   geom_point(data = rpca_scores, aes(x = PC1, y = PC2, colour = glassType, shape = glassType), size = 3L) +
   geom_line(data = ellipse_pca, aes(x = x, y = y, colour = glassType), linewidth = .1) +
   scale_color_brewer(palette = "Set1", direction = 1) +
@@ -217,11 +185,7 @@ plot4 <-
   theme(legend.position = "none")
 ```
 
-``` r
-plot4
-```
-
-<img src="man/figures/README-unnamed-chunk-17-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-15-1.png" width="100%" />
 
 ### Confidence Ellipsoid
 
@@ -230,22 +194,17 @@ and computes the ellipsoid for trivariate data.
 
 ``` r
 ellipsoid_grp <- df %>% 
-  confidence_ellipsoid(SiO2, Na2O, Fe2O3, glassType) %>%
-  print()
-#> # A tibble: 10,000 × 4
-#>        x     y     z glassType
-#>    <dbl> <dbl> <dbl> <fct>    
-#>  1  67.3  14.5 0.597 1        
-#>  2  67.3  14.5 0.597 1        
-#>  3  67.3  14.5 0.597 1        
-#>  4  67.3  14.5 0.597 1        
-#>  5  67.3  14.5 0.597 1        
-#>  6  67.3  14.5 0.597 1        
-#>  7  67.3  14.5 0.597 1        
-#>  8  67.3  14.5 0.597 1        
-#>  9  67.3  14.5 0.597 1        
-#> 10  67.3  14.5 0.597 1        
-#> # ℹ 9,990 more rows
+  confidence_ellipsoid(SiO2, Na2O, Fe2O3, glassType)
+```
+
+``` r
+ellipsoid_grp %>% glimpse()
+#> Rows: 10,000
+#> Columns: 4
+#> $ x         <dbl> 67.32486, 67.32486, 67.32486, 67.32486, 67.32486, 67.32486, …
+#> $ y         <dbl> 14.51964, 14.51964, 14.51964, 14.51964, 14.51964, 14.51964, …
+#> $ z         <dbl> 0.5971494, 0.5971494, 0.5971494, 0.5971494, 0.5971494, 0.597…
+#> $ glassType <fct> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
 ```
 
 ``` r
@@ -274,4 +233,4 @@ rgl::view3d(theta = 260, phi = 30, fov = 60, zoom = .9)
 rgl::rglwidget()
 ```
 
-<img src="../../../../../../private/var/folders/x3/yvrl30657qxdqhs1mthzh8g80000gn/T/RtmpmWoe60/file424f9db9d23.png" width="100%" />
+<img src="../../../../../../private/var/folders/x3/yvrl30657qxdqhs1mthzh8g80000gn/T/RtmpCM9KBy/file445366f05c61.png" width="100%" />
