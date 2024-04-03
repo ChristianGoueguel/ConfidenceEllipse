@@ -249,19 +249,29 @@ ellipsoid_grp <- df %>%
 ```
 
 ``` r
-plot5 <- 
-  plot3D::scatter3D(
-    x = df$SiO2,
-    y = df$Na2O, 
-    z = df$Fe2O3,
-    colvar = as.integer(df$glassType),
-    colkey = FALSE,
-    phi = 20, 
-    bty = "g", 
-    pch = 20, 
-    cex = 2,
-    xlab = "SiO2 (wt.%)", ylab = "Na2O (wt.%)", zlab = "Fe2O3 (wt.%)",
-    ticktype = "detailed")
+rgl::open3d()
+#> glX 
+#>   1
+rgl::plot3d(
+  x = ellipsoid_grp$x, 
+  y = ellipsoid_grp$y, 
+  z = ellipsoid_grp$z,
+  xlab = "SiO2 (wt.%)", 
+  ylab = "Na2O (wt.%)", 
+  zlab = "Fe2O3 (wt.%)",
+  type = "s", 
+  radius = 0.03,
+  col = as.numeric(ellipsoid_grp$glassType)
+  )
+rgl::points3d(
+  x = df$SiO2, 
+  y = df$Na2O, 
+  z = df$Fe2O3, 
+  col = as.numeric(df$glassType),
+  size = 5
+  )
+rgl::view3d(theta = 260, phi = 30, fov = 60, zoom = .9)
+rgl::rglwidget()
 ```
 
-<img src="man/figures/README-unnamed-chunk-19-1.png" width="100%" />
+<img src="../../../../../../private/var/folders/x3/yvrl30657qxdqhs1mthzh8g80000gn/T/RtmpmWoe60/file424f9db9d23.png" width="100%" />

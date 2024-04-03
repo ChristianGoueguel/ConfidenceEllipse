@@ -182,21 +182,31 @@ ellipsoid_grp <- df %>%
   print()
 ```
 
-```{r fig.height=10}
-plot5 <- 
-  plot3D::scatter3D(
-    x = df$SiO2,
-    y = df$Na2O, 
-    z = df$Fe2O3,
-    colvar = as.integer(df$glassType),
-    colkey = FALSE,
-    phi = 20, 
-    bty = "g", 
-    pch = 20, 
-    cex = 2,
-    xlab = "SiO2 (wt.%)", ylab = "Na2O (wt.%)", zlab = "Fe2O3 (wt.%)",
-    ticktype = "detailed")
+```{r message=FALSE, warning=FALSE}
+rgl::open3d()
+rgl::plot3d(
+  x = ellipsoid_grp$x, 
+  y = ellipsoid_grp$y, 
+  z = ellipsoid_grp$z,
+  xlab = "SiO2 (wt.%)", 
+  ylab = "Na2O (wt.%)", 
+  zlab = "Fe2O3 (wt.%)",
+  type = "s", 
+  radius = 0.03,
+  col = as.numeric(ellipsoid_grp$glassType)
+  )
+rgl::points3d(
+  x = df$SiO2, 
+  y = df$Na2O, 
+  z = df$Fe2O3, 
+  col = as.numeric(df$glassType),
+  size = 5
+  )
+rgl::view3d(theta = 260, phi = 30, fov = 60, zoom = .9)
+rgl::rglwidget()
 ```
+
+
 
 
 
