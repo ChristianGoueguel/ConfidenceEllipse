@@ -43,6 +43,7 @@ You can install the development version of `ConfidenceEllipse` like so:
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
 devtools::load_all()
+rgl::setupKnitr(autoprint = TRUE)
 ```
 
 ```{r message=FALSE, warning=FALSE}
@@ -190,7 +191,7 @@ rgl::points3d(
   size = 5
   )
 rgl::view3d(theta = 260, phi = 30, fov = 60, zoom = .9)
-rgl::rglwidget()
+rgl::rglwidget(snapshot = TRUE, webgl = FALSE)
 ```
 
 

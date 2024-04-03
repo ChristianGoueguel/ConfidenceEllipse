@@ -216,7 +216,7 @@ ellipsoid_grp %>% glimpse()
 ``` r
 rgl::open3d()
 #> glX 
-#>   1
+#>  17
 rgl::plot3d(
   x = ellipsoid_grp$x, 
   y = ellipsoid_grp$y, 
@@ -236,7 +236,12 @@ rgl::points3d(
   size = 5
   )
 rgl::view3d(theta = 260, phi = 30, fov = 60, zoom = .9)
-rgl::rglwidget()
 ```
 
-<img src="../../../../../../private/var/folders/x3/yvrl30657qxdqhs1mthzh8g80000gn/T/RtmpFl8ZM5/file459e6e2680f9.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-19-1-rgl.png" width="100%" />
+
+``` r
+rgl::rglwidget(snapshot = TRUE, webgl = FALSE)
+```
+
+<img src="../../../../../../private/var/folders/x3/yvrl30657qxdqhs1mthzh8g80000gn/T/RtmpedIVA5/file4b861f935417.png" width="100%" />
