@@ -68,7 +68,7 @@
 <p><img src="reference/figures/logo.png" align="right" height="239" alt=""></p>
 <!-- badges: start -->
 
-<p>The objective of the <code>ConfidenceEllipse</code> package is to compute the confidence ellipse for a given bivariate normal data. The size of the ellipse is determined by the confidence level, and the shape is determined by the correlation structure between the variables. The confidence level is usually chosen to be 95% or 99%, and the resulting ellipse contains the points that are expected to lie within the multivariate distribution.</p>
+<p>The objective of the <code>ConfidenceEllipse</code> package is to compute the coordinate points of confidence ellipses and ellipsoids for a given bivariate and trivariate normal data. The size of the ellipse and ellipsoid is determined by the confidence level, and the shape is determined by the correlation structure between the variables. The confidence level is usually chosen to be 95% or 99%, and the resulting confidence region contains the points that are expected to lie within the multivariate distribution.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -80,20 +80,23 @@
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org" class="external-link">magrittr</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="dataset">Dataset<a class="anchor" aria-label="anchor" href="#dataset"></a>
 </h3>
 <p>The dataset is comprised of 13 different measurements for 180 archaeological glass vessels from different groups (Janssen, K.H.A., De Raedt, I., Schalm, O., Veeckman, J.: Microchim. Acta 15 (suppl.) (1998) 253-267. Compositions of 15th - 17th century archaeological glass vessels excavated in Antwerp.)</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">glass</span>, package <span class="op">=</span> <span class="st">"chemometrics"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">glass.grp</span>, package <span class="op">=</span> <span class="st">"chemometrics"</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">glass.grp</span>, <span class="va">glass</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">as_tibble</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">rename</span><span class="op">(</span>glassType <span class="op">=</span> <span class="va">glass.grp</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">modify_at</span><span class="op">(</span><span class="st">"glassType"</span>, <span class="va">as_factor</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu">glimpse</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Rows: 180</span></span>
 <span><span class="co">#&gt; Columns: 14</span></span>
@@ -116,17 +119,17 @@
 <h3 id="confidence-ellipse">Confidence Ellipse<a class="anchor" aria-label="anchor" href="#confidence-ellipse"></a>
 </h3>
 <p>First, the <code>confidence_ellipse</code> function is used to compute coordinate points of the confidence ellipse and then the ellipse is plotted on a two-dimensional plot <code>x</code> and <code>y</code> of the data. Points that lie outside the ellipse are considered to be outliers, while points that lie within the ellipse are considered to be part of the underlying distribution with the specified confidence level <code>conf_level</code>.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ellipse_99</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/confidence_ellipse.html">confidence_ellipse</a></span><span class="op">(</span><span class="va">df</span>, x <span class="op">=</span> <span class="va">MgO</span>, y <span class="op">=</span> <span class="va">Cl</span>, conf_level <span class="op">=</span> <span class="fl">0.99</span><span class="op">)</span></span>
 <span><span class="va">ellipse_95</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/confidence_ellipse.html">confidence_ellipse</a></span><span class="op">(</span><span class="va">df</span>, x <span class="op">=</span> <span class="va">MgO</span>, y <span class="op">=</span> <span class="va">Cl</span>, conf_level <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span></span>
 <span><span class="va">ellipse_90</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/confidence_ellipse.html">confidence_ellipse</a></span><span class="op">(</span><span class="va">df</span>, x <span class="op">=</span> <span class="va">MgO</span>, y <span class="op">=</span> <span class="va">Cl</span>, conf_level <span class="op">=</span> <span class="fl">0.90</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ellipse_99</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu">glimpse</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Rows: 361</span></span>
 <span><span class="co">#&gt; Columns: 2</span></span>
 <span><span class="co">#&gt; $ x &lt;dbl&gt; -0.138094945, -0.138406455, -0.137962123, -0.136762084, -0.134806705…</span></span>
 <span><span class="co">#&gt; $ y &lt;dbl&gt; 0.7702743, 0.7592797, 0.7482409, 0.7371614, 0.7260445, 0.7148935, 0.…</span></span></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_point</span><span class="op">(</span>data <span class="op">=</span> <span class="va">ellipse_99</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"red"</span>, size <span class="op">=</span> <span class="fl">.1</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_point</span><span class="op">(</span>data <span class="op">=</span> <span class="va">ellipse_95</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"blue"</span>, size <span class="op">=</span> <span class="fl">.1</span><span class="op">)</span> <span class="op">+</span></span>
@@ -138,22 +141,22 @@
 <span>  <span class="fu">labs</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"MgO (wt.%)"</span>, y <span class="op">=</span> <span class="st">"Cl (wt.%)"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">theme</span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-9-1.png" width="100%"></p>
+<p><img src="reference/figures/README-unnamed-chunk-10-1.png" width="100%"></p>
 <div class="section level4">
 <h4 id="grouping">Grouping<a class="anchor" aria-label="anchor" href="#grouping"></a>
 </h4>
 <p>For grouping bivariate data, the <code>.group_by</code> argument can be used if the data contains an unique grouping variable (<code>.group_by = NULL</code> by default). When a grouping variable is provided, the function will compute the ellipses separately for each level of the factor, allowing you to explore potential differences or patterns within subgroups of the data.</p>
 <p>It’s important to note that the grouping variable should be appropriately coded as a factor before passing it to the <code>.group_by</code> argument. If the variable is currently stored as a character or numeric type, you may need to convert it to a factor using functions like <code><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor()</a></code> or <code><a href="https://forcats.tidyverse.org/reference/as_factor.html" class="external-link">forcats::as_factor()</a></code>.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ellipse_grp</span> <span class="op">&lt;-</span> <span class="va">df</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="reference/confidence_ellipse.html">confidence_ellipse</a></span><span class="op">(</span><span class="va">MgO</span>, <span class="va">Cl</span>, <span class="va">glassType</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ellipse_grp</span> <span class="op">&lt;-</span> <span class="va">df</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="reference/confidence_ellipse.html">confidence_ellipse</a></span><span class="op">(</span><span class="va">MgO</span>, <span class="va">Cl</span>, <span class="va">glassType</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ellipse_grp</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu">glimpse</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Rows: 1,444</span></span>
 <span><span class="co">#&gt; Columns: 3</span></span>
 <span><span class="co">#&gt; $ x         &lt;dbl&gt; 0.5675946, 0.5678922, 0.5687056, 0.5700346, 0.5718788, 0.574…</span></span>
 <span><span class="co">#&gt; $ y         &lt;dbl&gt; 0.6758368, 0.6688488, 0.6618660, 0.6548902, 0.6479238, 0.640…</span></span>
 <span><span class="co">#&gt; $ glassType &lt;fct&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …</span></span></code></pre></div>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_point</span><span class="op">(</span>dat <span class="op">=</span> <span class="va">df</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">MgO</span>, y <span class="op">=</span> <span class="va">Cl</span>, colour <span class="op">=</span> <span class="va">glassType</span>, shape <span class="op">=</span> <span class="va">glassType</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">3L</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_line</span><span class="op">(</span>data <span class="op">=</span> <span class="va">ellipse_grp</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, colour <span class="op">=</span> <span class="va">glassType</span><span class="op">)</span>, linewidth <span class="op">=</span> <span class="fl">.1</span><span class="op">)</span> <span class="op">+</span></span>
@@ -163,12 +166,12 @@
 <span>  <span class="fu">labs</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"MgO (wt.%)"</span>, y <span class="op">=</span> <span class="st">"Cl (wt.%)"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">theme</span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-12-1.png" width="100%"></p>
+<p><img src="reference/figures/README-unnamed-chunk-13-1.png" width="100%"></p>
 </div>
 <div class="section level4">
 <h4 id="principal-component-analysis">Principal Component Analysis<a class="anchor" aria-label="anchor" href="#principal-component-analysis"></a>
 </h4>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">rpca_scores</span> <span class="op">&lt;-</span> <span class="va">df</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">select</span><span class="op">(</span><span class="fu">where</span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span> <span class="op">)</span><span class="op"><a href="reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">pcaPP</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pcaPP/man/PCAproj.html" class="external-link">PCAproj</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"qn"</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
@@ -176,10 +179,10 @@
 <span>  <span class="fu">as_tibble</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">mutate</span><span class="op">(</span>glassType <span class="op">=</span> <span class="va">df</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu">pull</span><span class="op">(</span><span class="va">glassType</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">rename</span><span class="op">(</span>PC1 <span class="op">=</span> <span class="va">Comp.1</span>, PC2 <span class="op">=</span> <span class="va">Comp.2</span><span class="op">)</span> </span></code></pre></div>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ellipse_pca</span> <span class="op">&lt;-</span> <span class="va">rpca_scores</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span><span class="fu"><a href="reference/confidence_ellipse.html">confidence_ellipse</a></span><span class="op">(</span><span class="va">PC1</span>, <span class="va">PC2</span>, <span class="va">glassType</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_point</span><span class="op">(</span>data <span class="op">=</span> <span class="va">rpca_scores</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">PC1</span>, y <span class="op">=</span> <span class="va">PC2</span>, colour <span class="op">=</span> <span class="va">glassType</span>, shape <span class="op">=</span> <span class="va">glassType</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">3L</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_line</span><span class="op">(</span>data <span class="op">=</span> <span class="va">ellipse_pca</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, colour <span class="op">=</span> <span class="va">glassType</span><span class="op">)</span>, linewidth <span class="op">=</span> <span class="fl">.1</span><span class="op">)</span> <span class="op">+</span></span>
@@ -187,17 +190,17 @@
 <span>  <span class="fu">labs</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"PC1"</span>, y <span class="op">=</span> <span class="st">"PC2"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">theme</span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-15-1.png" width="100%"></p>
+<p><img src="reference/figures/README-unnamed-chunk-16-1.png" width="100%"></p>
 </div>
 </div>
 <div class="section level3">
 <h3 id="confidence-ellipsoid">Confidence Ellipsoid<a class="anchor" aria-label="anchor" href="#confidence-ellipsoid"></a>
 </h3>
 <p>The <code>confidence_ellipsoid</code> function accepts an additional variable <code>z</code> and computes the ellipsoid for trivariate data.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ellipsoid_grp</span> <span class="op">&lt;-</span> <span class="va">df</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="reference/confidence_ellipsoid.html">confidence_ellipsoid</a></span><span class="op">(</span><span class="va">SiO2</span>, <span class="va">Na2O</span>, <span class="va">Fe2O3</span>, <span class="va">glassType</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ellipsoid_grp</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu">glimpse</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Rows: 10,000</span></span>
 <span><span class="co">#&gt; Columns: 4</span></span>
@@ -205,7 +208,7 @@
 <span><span class="co">#&gt; $ y         &lt;dbl&gt; 14.51964, 14.51964, 14.51964, 14.51964, 14.51964, 14.51964, …</span></span>
 <span><span class="co">#&gt; $ z         &lt;dbl&gt; 0.5971494, 0.5971494, 0.5971494, 0.5971494, 0.5971494, 0.597…</span></span>
 <span><span class="co">#&gt; $ glassType &lt;fct&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …</span></span></code></pre></div>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">rgl</span><span class="fu">::</span><span class="fu"><a href="https://dmurdoch.github.io/rgl/dev/reference/open3d.html" class="external-link">open3d</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; glX </span></span>
 <span><span class="co">#&gt;   1</span></span>
@@ -229,7 +232,7 @@
 <span>  <span class="op">)</span></span>
 <span><span class="fu">rgl</span><span class="fu">::</span><span class="fu"><a href="https://dmurdoch.github.io/rgl/dev/reference/viewpoint.html" class="external-link">view3d</a></span><span class="op">(</span>theta <span class="op">=</span> <span class="fl">260</span>, phi <span class="op">=</span> <span class="fl">30</span>, fov <span class="op">=</span> <span class="fl">60</span>, zoom <span class="op">=</span> <span class="fl">.9</span><span class="op">)</span></span>
 <span><span class="fu">rgl</span><span class="fu">::</span><span class="fu"><a href="https://dmurdoch.github.io/rgl/dev/reference/rglwidget.html" class="external-link">rglwidget</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="../../../../../../private/var/folders/x3/yvrl30657qxdqhs1mthzh8g80000gn/T/RtmpCM9KBy/file445366f05c61.png" width="100%"></p>
+<p><img src="../../../../../../private/var/folders/x3/yvrl30657qxdqhs1mthzh8g80000gn/T/RtmpFl8ZM5/file459e6e2680f9.png" width="100%"></p>
 </div>
 </div>
 </div>
