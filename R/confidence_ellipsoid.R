@@ -8,7 +8,7 @@
 #' @param conf_level The confidence level for the ellipse (0.95 by default).
 #' @return A data frame of the coordinates points of the ellipse.
 #' @export confidence_ellipsoid
-#'
+
 confidence_ellipsoid <- function(.data, x, y, z, .group_by = NULL, conf_level = 0.95) {
 
   if (missing(.data)) {

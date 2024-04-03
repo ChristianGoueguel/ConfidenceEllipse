@@ -18,12 +18,13 @@ MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/
 <!-- badges: end -->
 
 The objective of the `ConfidenceEllipse` package is to compute the
-confidence ellipse for a given bivariate normal data. The size of the
-ellipse is determined by the confidence level, and the shape is
+coordinate points of confidence ellipses and ellipsoids for a given
+bivariate and trivariate normal data. The size of the ellipse and
+ellipsoid is determined by the confidence level, and the shape is
 determined by the correlation structure between the variables. The
 confidence level is usually chosen to be 95% or 99%, and the resulting
-ellipse contains the points that are expected to lie within the
-multivariate distribution.
+confidence region contains the points that are expected to lie within
+the multivariate distribution.
 
 ## Installation
 
@@ -35,6 +36,11 @@ You can install the development version of `ConfidenceEllipse` like so:
 ```
 
 ## Example
+
+``` r
+library(tidyverse)
+library(magrittr)
+```
 
 ### Dataset
 
@@ -114,7 +120,7 @@ ggplot() +
   theme(legend.position = "none")
 ```
 
-<img src="man/figures/README-unnamed-chunk-9-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-10-1.png" width="100%" />
 
 #### Grouping
 
@@ -156,7 +162,7 @@ ggplot() +
   theme(legend.position = "none")
 ```
 
-<img src="man/figures/README-unnamed-chunk-12-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-13-1.png" width="100%" />
 
 #### Principal Component Analysis
 
@@ -185,7 +191,7 @@ ggplot() +
   theme(legend.position = "none")
 ```
 
-<img src="man/figures/README-unnamed-chunk-15-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-16-1.png" width="100%" />
 
 ### Confidence Ellipsoid
 
@@ -233,4 +239,4 @@ rgl::view3d(theta = 260, phi = 30, fov = 60, zoom = .9)
 rgl::rglwidget()
 ```
 
-<img src="../../../../../../private/var/folders/x3/yvrl30657qxdqhs1mthzh8g80000gn/T/RtmpCM9KBy/file445366f05c61.png" width="100%" />
+<img src="../../../../../../private/var/folders/x3/yvrl30657qxdqhs1mthzh8g80000gn/T/RtmpFl8ZM5/file459e6e2680f9.png" width="100%" />
