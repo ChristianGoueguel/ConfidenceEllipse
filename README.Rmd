@@ -190,8 +190,7 @@ rgl::points3d(
   col = as.numeric(df$glassType),
   size = 5
   )
-rgl::view3d(theta = 260, phi = 30, fov = 60, zoom = .9)
-rgl::rglwidget(snapshot = TRUE, webgl = FALSE)
+rgl::view3d(theta = 260, phi = 30, fov = 60, zoom = .85)
 ```
 
 

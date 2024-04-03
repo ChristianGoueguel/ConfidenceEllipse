@@ -235,13 +235,7 @@ rgl::points3d(
   col = as.numeric(df$glassType),
   size = 5
   )
-rgl::view3d(theta = 260, phi = 30, fov = 60, zoom = .9)
+rgl::view3d(theta = 260, phi = 30, fov = 60, zoom = .85)
 ```
 
 <img src="man/figures/README-unnamed-chunk-19-1-rgl.png" width="100%" />
-
-``` r
-rgl::rglwidget(snapshot = TRUE, webgl = FALSE)
-```
-
-<img src="../../../../../../private/var/folders/x3/yvrl30657qxdqhs1mthzh8g80000gn/T/RtmpedIVA5/file4b861f935417.png" width="100%" />
