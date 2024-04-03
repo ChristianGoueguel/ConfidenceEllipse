@@ -214,9 +214,7 @@ ellipsoid_grp %>% glimpse()
 ```
 
 ``` r
-rgl::open3d()
-#> glX 
-#>  17
+rgl::setupKnitr(autoprint = TRUE)
 rgl::plot3d(
   x = ellipsoid_grp$x, 
   y = ellipsoid_grp$y, 

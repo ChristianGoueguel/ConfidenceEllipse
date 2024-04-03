@@ -43,7 +43,6 @@ You can install the development version of `ConfidenceEllipse` like so:
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
 devtools::load_all()
-rgl::setupKnitr(autoprint = TRUE)
 ```
 
 ```{r message=FALSE, warning=FALSE}
@@ -171,7 +170,7 @@ ellipsoid_grp %>% glimpse()
 ```
 
 ```{r message=FALSE, warning=FALSE}
-rgl::open3d()
+rgl::setupKnitr(autoprint = TRUE)
 rgl::plot3d(
   x = ellipsoid_grp$x, 
   y = ellipsoid_grp$y, 
