@@ -4,7 +4,7 @@
 #' @param .data The data frame or tibble.
 #' @param x The unquoted column name for the x-axis variable.
 #' @param y The unquoted column name for the y-axis variable.
-#' @param .group_by The unquoted column name for the grouping variable (optional). Note that this grouping variable must be a factor
+#' @param .group_by The unquoted column name for the grouping variable (optional). Note that this grouping variable must be a factor.
 #' @param conf_level The confidence level for the ellipse (0.95 by default).
 #' @return A data frame of the coordinates points of the ellipse.
 #' @export confidence_ellipse
@@ -33,9 +33,9 @@ confidence_ellipse <- function(.data, x, y, .group_by = NULL, conf_level = 0.95)
     else {
       eig <- eigen(cov_mat)
       theta <- (2 * pi * seq(0, 360, 1)) / 360
-      B1 <- sqrt(eig$values[1] * stats::qchisq(conf_level, 2)) * cos(theta)
-      B2 <- sqrt(eig$values[2] * stats::qchisq(conf_level, 2)) * sin(theta)
-      R <- cbind(B1, B2) %*% t(eig$vectors)
+      X <- sqrt(eig$values[1] * stats::qchisq(conf_level, 2)) * cos(theta)
+      Y <- sqrt(eig$values[2] * stats::qchisq(conf_level, 2)) * sin(theta)
+      R <- cbind(X, Y) %*% t(eig$vectors)
       res <- R + matrix(rep(t(mean_vec), 361), ncol = ncol(t(mean_vec)), byrow = TRUE)
       return(res)
     }

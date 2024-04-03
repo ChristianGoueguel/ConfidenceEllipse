@@ -115,7 +115,7 @@ plot2 <-
 wrap_plots(plot1, plot2)
 ```
 
-### Grouping
+#### Grouping
 
 For grouping bivariate data, the `.group_by` argument can be used if the data contains an unique grouping variable (`.group_by = NULL` by default). When a grouping variable is provided, the function will compute the ellipses separately for each level of the factor, allowing you to explore potential differences or patterns within subgroups of the data.
 
@@ -160,7 +160,7 @@ confidence_ellipse(PC1, PC2, glassType)
 ```{r}
 plot4 <- 
   ggplot() +
-  geom_point(dat = rpca_scores, aes(x = PC1, y = PC2, colour = glassType, shape = glassType), size = 3L) +
+  geom_point(data = rpca_scores, aes(x = PC1, y = PC2, colour = glassType, shape = glassType), size = 3L) +
   geom_line(data = ellipse_pca, aes(x = x, y = y, colour = glassType), linewidth = .1) +
   scale_color_brewer(palette = "Set1", direction = 1) +
   labs(x = "PC1", y = "PC2") +
@@ -172,9 +172,31 @@ plot4 <-
 plot4
 ```
 
+### Confidence Ellipsoid
 
+The `confidence_ellipsoid` function accepts an additional variable `z` and computes the ellipsoid for trivariate data.
 
+```{r message=FALSE, warning=FALSE}
+ellipsoid_grp <- df %>% 
+  confidence_ellipsoid(SiO2, Na2O, Fe2O3, glassType) %>%
+  print()
+```
 
+```{r fig.height=10}
+plot5 <- 
+  plot3D::scatter3D(
+    x = df$SiO2,
+    y = df$Na2O, 
+    z = df$Fe2O3,
+    colvar = as.integer(df$glassType),
+    colkey = FALSE,
+    phi = 20, 
+    bty = "g", 
+    pch = 20, 
+    cex = 2,
+    xlab = "SiO2 (wt.%)", ylab = "Na2O (wt.%)", zlab = "Fe2O3 (wt.%)",
+    ticktype = "detailed")
+```
 
 
 

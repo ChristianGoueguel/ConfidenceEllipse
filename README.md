@@ -139,7 +139,7 @@ wrap_plots(plot1, plot2)
 
 <img src="man/figures/README-unnamed-chunk-10-1.png" width="100%" />
 
-### Grouping
+#### Grouping
 
 For grouping bivariate data, the `.group_by` argument can be used if the
 data contains an unique grouping variable (`.group_by = NULL` by
@@ -209,7 +209,7 @@ confidence_ellipse(PC1, PC2, glassType)
 ``` r
 plot4 <- 
   ggplot() +
-  geom_point(dat = rpca_scores, aes(x = PC1, y = PC2, colour = glassType, shape = glassType), size = 3L) +
+  geom_point(data = rpca_scores, aes(x = PC1, y = PC2, colour = glassType, shape = glassType), size = 3L) +
   geom_line(data = ellipse_pca, aes(x = x, y = y, colour = glassType), linewidth = .1) +
   scale_color_brewer(palette = "Set1", direction = 1) +
   labs(x = "PC1", y = "PC2") +
@@ -222,3 +222,46 @@ plot4
 ```
 
 <img src="man/figures/README-unnamed-chunk-17-1.png" width="100%" />
+
+### Confidence Ellipsoid
+
+The `confidence_ellipsoid` function accepts an additional variable `z`
+and computes the ellipsoid for trivariate data.
+
+``` r
+ellipsoid_grp <- df %>% 
+  confidence_ellipsoid(SiO2, Na2O, Fe2O3, glassType) %>%
+  print()
+#> # A tibble: 10,000 × 4
+#>        x     y     z glassType
+#>    <dbl> <dbl> <dbl> <fct>    
+#>  1  67.3  14.5 0.597 1        
+#>  2  67.3  14.5 0.597 1        
+#>  3  67.3  14.5 0.597 1        
+#>  4  67.3  14.5 0.597 1        
+#>  5  67.3  14.5 0.597 1        
+#>  6  67.3  14.5 0.597 1        
+#>  7  67.3  14.5 0.597 1        
+#>  8  67.3  14.5 0.597 1        
+#>  9  67.3  14.5 0.597 1        
+#> 10  67.3  14.5 0.597 1        
+#> # ℹ 9,990 more rows
+```
+
+``` r
+plot5 <- 
+  plot3D::scatter3D(
+    x = df$SiO2,
+    y = df$Na2O, 
+    z = df$Fe2O3,
+    colvar = as.integer(df$glassType),
+    colkey = FALSE,
+    phi = 20, 
+    bty = "g", 
+    pch = 20, 
+    cex = 2,
+    xlab = "SiO2 (wt.%)", ylab = "Na2O (wt.%)", zlab = "Fe2O3 (wt.%)",
+    ticktype = "detailed")
+```
+
+<img src="man/figures/README-unnamed-chunk-19-1.png" width="100%" />
