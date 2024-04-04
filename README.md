@@ -92,17 +92,17 @@ the ellipse are considered to be part of the underlying distribution
 with the specified confidence level `conf_level`.
 
 ``` r
-ellipse_99 <- confidence_ellipse(glass, x = MgO, y = Cl2O, conf_level = 0.99)
-ellipse_95 <- confidence_ellipse(glass, x = MgO, y = Cl2O, conf_level = 0.95)
-ellipse_90 <- confidence_ellipse(glass, x = MgO, y = Cl2O, conf_level = 0.90)
+ellipse_99 <- confidence_ellipse(glass, x = SiO2, y = Na2O, conf_level = 0.99)
+ellipse_95 <- confidence_ellipse(glass, x = SiO2, y = Na2O, conf_level = 0.95)
+ellipse_90 <- confidence_ellipse(glass, x = SiO2, y = Na2O, conf_level = 0.90)
 ```
 
 ``` r
 ellipse_99 %>% glimpse()
 #> Rows: 361
 #> Columns: 2
-#> $ x <dbl> -0.138094945, -0.138406455, -0.137962123, -0.136762084, -0.134806705…
-#> $ y <dbl> 0.7702743, 0.7592797, 0.7482409, 0.7371614, 0.7260445, 0.7148935, 0.…
+#> $ x <dbl> 76.35866, 76.23254, 76.10346, 75.97148, 75.83662, 75.69893, 75.55845…
+#> $ y <dbl> 24.26617, 24.36884, 24.46791, 24.56335, 24.65513, 24.74322, 24.82760…
 ```
 
 ``` r
@@ -110,11 +110,9 @@ ggplot() +
   geom_point(data = ellipse_99, aes(x = x, y = y), color = "red", size = .1) +
   geom_point(data = ellipse_95, aes(x = x, y = y), color = "blue", size = .1) +
   geom_point(data = ellipse_90, aes(x = x, y = y), color = "green", size = .1) +
-  geom_point(data = glass, aes(x = MgO, y = Cl2O), color = "black", size = 3L) +
-  xlim(-.5, 6) +
-  ylim(-0.05, 1.5) +
+  geom_point(data = glass, aes(x = SiO2, y = Na2O), color = "black", size = 3L) +
   scale_color_brewer(palette = "Set1", direction = 1) +
-  labs(x = "MgO (wt.%)", y = "Cl2O (wt.%)") +
+  labs(x = "SiO2 (wt.%)", y = "Na2O (wt.%)") +
   theme_bw() +
   theme(legend.position = "none")
 ```
@@ -137,28 +135,30 @@ type, you may need to convert it to a factor using functions like
 `as.factor()` or `forcats::as_factor()`.
 
 ``` r
-ellipse_grp <- glass %>% confidence_ellipse(MgO, Cl2O, glassType)
+ellipse_grp <- glass %>% confidence_ellipse(SiO2, Na2O, glassType)
 ```
 
 ``` r
 ellipse_grp %>% glimpse()
 #> Rows: 1,444
 #> Columns: 3
-#> $ x         <dbl> 0.5675946, 0.5678922, 0.5687056, 0.5700346, 0.5718788, 0.574…
-#> $ y         <dbl> 0.6758368, 0.6688488, 0.6618660, 0.6548902, 0.6479238, 0.640…
+#> $ x         <dbl> 59.59996, 59.59948, 59.60135, 59.60557, 59.61214, 59.62106, …
+#> $ y         <dbl> 14.71814, 14.65429, 14.59039, 14.52647, 14.46255, 14.39864, …
 #> $ glassType <fct> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
 ```
 
 ``` r
 ggplot() +
-  geom_point(data = glass, aes(x = MgO, y = Cl2O, colour = glassType, shape = glassType), size = 3L) +
+  geom_point(data = glass, aes(x = SiO2, y = Na2O, colour = glassType, shape = glassType), size = 3L) +
   geom_line(data = ellipse_grp, aes(x = x, y = y, colour = glassType), linewidth = .1) +
-  xlim(0, 6) +
-  ylim(-0.05, 1.5) +
+  xlim(50, 75) +
+  ylim(0, 20) +
   scale_color_brewer(palette = "Set1", direction = 1) +
-  labs(x = "MgO (wt.%)", y = "Cl2O (wt.%)") +
+  labs(x = "SiO2 (wt.%)", y = "Na2O (wt.%)") +
   theme_bw() +
   theme(legend.position = "none")
+#> Warning: Removed 12 rows containing missing values or values outside the scale range
+#> (`geom_line()`).
 ```
 
 <img src="man/figures/README-unnamed-chunk-12-1.png" width="100%" />
