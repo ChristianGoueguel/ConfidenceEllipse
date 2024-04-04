@@ -1,6 +1,8 @@
 pandoc: 3.1.11
 pkgdown: 2.0.7
 pkgdown_sha: ~
-articles: {}
-last_built: 2024-04-03T22:54Z
+articles:
+  confidence-ellipse: confidence-ellipse.html
+  confidence-ellipsoid: confidence-ellipsoid.html
+last_built: 2024-04-04T23:32Z
 
