@@ -19,17 +19,15 @@ A confidence ellipse is a graphical representation that shows the variability or
 ```{r message=FALSE, warning=FALSE}
 library(magrittr)
 library(dplyr)
-library(purrr)
-library(tibble)
 library(ggplot2)
 ```
 
-```{r message=FALSE, warning=FALSE, include=FALSE}
-devtools::load_all()
+```{r message=FALSE, warning=FALSE}
+library(ConfidenceEllipse)
 ```
 
 ```{r}
-data("glass")
+data(glass, package = "ConfidenceEllipse")
 ```
 
 # Coordinate points

@@ -19,17 +19,14 @@ Ellipsoids are a generalization of ellipses to higher dimensions. Herein, confid
 ```{r message=FALSE, warning=FALSE}
 library(magrittr)
 library(dplyr)
-library(purrr)
-library(tibble)
-library(ggplot2)
 ```
 
-```{r message=FALSE, warning=FALSE, include=FALSE}
-devtools::load_all()
+```{r message=FALSE, warning=FALSE}
+library(ConfidenceEllipse)
 ```
 
 ```{r}
-data(glass)
+data(glass, package = "ConfidenceEllipse")
 ```
 
 # Coordinate points

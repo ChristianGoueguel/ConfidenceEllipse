@@ -7,9 +7,6 @@
 \format{
 Data frame of 180 rows and 14 columns.
 }
-\source{
-\doi{10.1039/C9JA00090A}
-}
 \usage{
 glass
 }

@@ -41,13 +41,17 @@ You can install the development version of `ConfidenceEllipse` like so:
 
 ## Example
 
-```{r message=FALSE, warning=FALSE, include=FALSE}
-devtools::load_all()
+```{r message=FALSE, warning=FALSE}
+library(magrittr)
+library(tidyselect)
+library(dplyr)
+library(ggplot2)
+library(purrr)
+library(tidyr)
 ```
 
 ```{r message=FALSE, warning=FALSE}
-library(tidyverse)
-library(magrittr)
+library(ConfidenceEllipse)
 ```
 
 ### Dataset
@@ -59,7 +63,7 @@ Raedt, I., Schalm, O., Veeckman, J.: Microchim. Acta 15 (suppl.) (1998)
 vessels excavated in Antwerp.)
 
 ```{r}
-data("glass")
+data("glass", package = "ConfidenceEllipse")
 ```
 
 ```{r}
