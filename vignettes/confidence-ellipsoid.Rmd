@@ -17,22 +17,19 @@ knitr::opts_chunk$set(
 Ellipsoids are a generalization of ellipses to higher dimensions. Herein, confidence ellipsoids refers as a three-dimensional graphical representations, plotted in the space defined by three variables in a trivariate dataset.
 
 ```{r message=FALSE, warning=FALSE}
-library(ConfidenceEllipse)
-library(tidyverse)
 library(magrittr)
+library(dplyr)
+library(purrr)
+library(tibble)
+library(ggplot2)
+```
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+devtools::load_all()
 ```
 
 ```{r}
-data(glass, package = "chemometrics")
-data(glass.grp, package = "chemometrics")
-```
-
-```{r}
-df <-
-  cbind(glass.grp, glass) %>%
-  as_tibble() %>%
-  rename(glassType = glass.grp) %>%
-  modify_at("glassType", as_factor)
+data(glass)
 ```
 
 # Coordinate points
@@ -40,7 +37,7 @@ df <-
 The `confidence_ellipsoid` function accepts `x`, `y` and `z` input variables and computes the coordinate points of the ellipsoid at the specified confidence level `conf_level`.
 
 ```{r message=FALSE, warning=FALSE}
-ellipsoid <- df %>% 
+ellipsoid <- glass %>% 
   confidence_ellipsoid(x = SiO2, y = Na2O, z = Fe2O3, conf_level = 0.95)
 ```
 
@@ -62,9 +59,9 @@ rgl::plot3d(
   col = "black"
   )
 rgl::points3d(
-  x = df$SiO2, 
-  y = df$Na2O, 
-  z = df$Fe2O3, 
+  x = glass$SiO2, 
+  y = glass$Na2O, 
+  z = glass$Fe2O3, 
   col = "darkred",
   size = 5
   )
@@ -76,7 +73,7 @@ rgl::view3d(zoom = .8)
 For grouping trivariate data, the `.group_by` argument can be used if the data contains an unique grouping variable (`.group_by = NULL` by default). When a grouping variable is provided, the function will compute the ellipsoid separately for each level of the factor. It's important to note that the grouping variable should be appropriately coded as a factor before passing it to the `.group_by` argument.
 
 ```{r message=FALSE, warning=FALSE}
-ellipsoid_grp <- df %>% 
+ellipsoid_grp <- glass %>% 
   confidence_ellipsoid(x = SiO2, y = Na2O, z = Fe2O3, .group_by = glassType, conf_level = 0.95)
 ```
 
@@ -98,10 +95,10 @@ rgl::plot3d(
   col = as.numeric(ellipsoid_grp$glassType)
   )
 rgl::points3d(
-  x = df$SiO2, 
-  y = df$Na2O, 
-  z = df$Fe2O3, 
-  col = as.numeric(df$glassType),
+  x = glass$SiO2, 
+  y = glass$Na2O, 
+  z = glass$Fe2O3, 
+  col = as.numeric(glass$glassType),
   size = 5
   )
 rgl::view3d(zoom = .8)

@@ -4,11 +4,11 @@
 \name{ConfidenceEllipse-package}
 \alias{ConfidenceEllipse}
 \alias{ConfidenceEllipse-package}
-\title{ConfidenceEllipse: Confidence Ellipse Coordinates for Bivariate Normal Data}
+\title{ConfidenceEllipse: Computation of 2D and 3D Confidence Ellipse Coordinates}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-This package provided a function to calculate confidence ellipse, based on the assumption of bivariate normality, for a given confidence level.
+This package provided a function to calculate confidence ellipses and ellipsoids for a given confidence level.
 }
 \seealso{
 Useful links:

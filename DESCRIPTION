@@ -1,16 +1,19 @@
 Package: ConfidenceEllipse
 Type: Package
-Title: Confidence Ellipse Coordinates for Bivariate Normal Data
+Title: Computation of 2D and 3D Confidence Ellipse Coordinates
 Version: 0.1.0
 Author: Christian L. Goueguel
 Maintainer: Christian L. Goueguel <christian.goueguel@gmail.com>
-Description: This package provided a function to calculate confidence ellipse, based on the assumption of bivariate normality, for a given confidence level.
+Description: This package provided a function to calculate confidence ellipses and ellipsoids for a given confidence level.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.3.1
 Imports: 
+    chemometrics,
     dplyr,
+    forcats,
+    ggplot2,
     magrittr,
     pcaPP,
     purrr,
@@ -26,3 +29,5 @@ Suggests:
     knitr,
     rmarkdown
 VignetteBuilder: knitr
+Depends: 
+    R (>= 2.10)
