@@ -57,6 +57,7 @@ confidence_ellipsoid <- function(.data, x, y, z, .group_by = NULL, conf_level = 
         tidyr::nest() %>%
         dplyr::ungroup()
 
+      data <- NULL
       ellipsoid_tbl <- nested_tbl %>%
         dplyr::mutate(data = purrr::map(data, ~ transform_data(as.matrix(.x), conf_level))) %>%
         tidyr::unnest(data)

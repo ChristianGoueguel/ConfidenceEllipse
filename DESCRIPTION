@@ -22,3 +22,7 @@ Imports:
     tidyselect
 Roxygen: list(markdown = TRUE)
 URL: https://christiangoueguel.github.io/ConfidenceEllipse/
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
