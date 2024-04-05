@@ -15,6 +15,7 @@ developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.re
 stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![License:
 MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![codecov](https://codecov.io/gh/ChristianGoueguel/ConfidenceEllipse/graph/badge.svg?token=JAGMXN2F70)](https://codecov.io/gh/ChristianGoueguel/ConfidenceEllipse)
 <!-- badges: end -->
 
 The objective of the `ConfidenceEllipse` package is to compute the

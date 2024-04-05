@@ -1,5 +1,4 @@
 library(tibble)
-data("glass", package = "ConfidenceEllipse")
 # Test cases covered:
 # confidence_ellipse function stops when no data is provided.
 # confidence_ellipse function stops when input data is not a data frame or tibble.
