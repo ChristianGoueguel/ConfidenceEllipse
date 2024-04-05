@@ -51,9 +51,9 @@ rgl::plot3d(
   xlab = "SiO2 (wt.%)", 
   ylab = "Na2O (wt.%)", 
   zlab = "Fe2O3 (wt.%)",
-  type = "s", 
-  radius = 0.1,
-  col = "black"
+  type = "l", 
+  radius = .05,
+  col = "darkgrey"
   )
 rgl::points3d(
   x = glass$SiO2, 
@@ -88,7 +88,7 @@ rgl::plot3d(
   ylab = "Na2O (wt.%)", 
   zlab = "Fe2O3 (wt.%)",
   type = "s", 
-  radius = 0.03,
+  radius = .03,
   col = as.numeric(ellipsoid_grp$glassType)
   )
 rgl::points3d(

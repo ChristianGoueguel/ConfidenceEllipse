@@ -13,11 +13,11 @@ knitr::opts_chunk$set(
 )
 ```
 
-# ConfidenceEllipse
-
-<img src="man/figures/logo.png" align="right" height="239" alt="" />
 
 <!-- badges: start -->
+
+# ConfidenceEllipse <img src="man/figures/logo.png" align="right" height="239" alt="" />
+
 [![R-CMD-check](https://github.com/ChristianGoueguel/ConfidenceEllipse/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ChristianGoueguel/ConfidenceEllipse/actions/workflows/R-CMD-check.yaml)
 [![Project Status: Active – The project has reached a stable, usable
 state and is being actively
@@ -29,7 +29,7 @@ MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/
 [![codecov](https://codecov.io/gh/ChristianGoueguel/ConfidenceEllipse/graph/badge.svg?token=JAGMXN2F70)](https://codecov.io/gh/ChristianGoueguel/ConfidenceEllipse)
 <!-- badges: end -->
 
-The objective of the `ConfidenceEllipse` package is to compute the coordinate points of confidence ellipses and ellipsoids for a given bivariate and trivariate normal data. The size of the ellipse and ellipsoid is determined by the confidence level, and the shape is determined by the correlation structure between the variables. The confidence level is usually chosen to be 95% or 99%, and the resulting confidence region contains the points that are expected to lie within the multivariate distribution.
+The `ConfidenceEllipse` package computes the coordinate points of confidence ellipses and ellipsoids for a given bivariate and trivariate normal data. The size of the ellipse and ellipsoid is determined by the confidence level, and the shape is determined by the correlation structure between the variables. The confidence level is usually chosen to be 95% or 99%, and the resulting confidence region contains the points that are expected to lie within the multivariate distribution.
 
 ## Installation
 
@@ -87,12 +87,15 @@ ellipse_99 %>% glimpse()
 
 ```{r}
 ggplot() +
-  geom_point(data = ellipse_99, aes(x = x, y = y), color = "red", size = .1) +
-  geom_point(data = ellipse_95, aes(x = x, y = y), color = "blue", size = .1) +
-  geom_point(data = ellipse_90, aes(x = x, y = y), color = "green", size = .1) +
+  geom_path(data = ellipse_99, aes(x = x, y = y), color = "red", linewidth = 1L) +
+  geom_path(data = ellipse_95, aes(x = x, y = y), color = "blue", linewidth = 1L) +
+  geom_path(data = ellipse_90, aes(x = x, y = y), color = "green", linewidth = 1L) +
   geom_point(data = glass, aes(x = SiO2, y = Na2O), color = "black", size = 3L) +
   scale_color_brewer(palette = "Set1", direction = 1) +
-  labs(x = "SiO2 (wt.%)", y = "Na2O (wt.%)") +
+  labs(
+    x = "SiO2 (wt.%)", 
+    y = "Na2O (wt.%)",
+    title = "Confidence ellipses at 90%, 95%, and 99% levels") +
   theme_bw() +
   theme(legend.position = "none")
 ```
@@ -102,28 +105,6 @@ ggplot() +
 For grouping bivariate data, the `.group_by` argument can be used if the data contains an unique grouping variable (`.group_by = NULL` by default). When a grouping variable is provided, the function will compute the ellipses separately for each level of the factor, allowing you to explore potential differences or patterns within subgroups of the data.
 
 It's important to note that the grouping variable should be appropriately coded as a factor before passing it to the `.group_by` argument. If the variable is currently stored as a character or numeric type, you may need to convert it to a factor using functions like `as.factor()` or `forcats::as_factor()`.
-
-```{r message=FALSE, warning=FALSE}
-ellipse_grp <- glass %>% confidence_ellipse(SiO2, Na2O, glassType)
-```
-
-```{r}
-ellipse_grp %>% glimpse()
-```
-
-```{r}
-ggplot() +
-  geom_point(data = glass, aes(x = SiO2, y = Na2O, colour = glassType, shape = glassType), size = 3L) +
-  geom_line(data = ellipse_grp, aes(x = x, y = y, colour = glassType), linewidth = .1) +
-  xlim(50, 75) +
-  ylim(0, 20) +
-  scale_color_brewer(palette = "Set1", direction = 1) +
-  labs(x = "SiO2 (wt.%)", y = "Na2O (wt.%)") +
-  theme_bw() +
-  theme(legend.position = "none")
-```
-
-#### Principal Component Analysis
 
 ```{r}
 rpca_scores <- glass %>%
@@ -137,15 +118,18 @@ rpca_scores <- glass %>%
 
 ```{r message=FALSE, warning=FALSE}
 ellipse_pca <- rpca_scores %>%
-confidence_ellipse(PC1, PC2, glassType)
+confidence_ellipse(x = PC1, y = PC2, .group_by = glassType)
 ```
 
 ```{r}
 ggplot() +
   geom_point(data = rpca_scores, aes(x = PC1, y = PC2, colour = glassType, shape = glassType), size = 3L) +
-  geom_line(data = ellipse_pca, aes(x = x, y = y, colour = glassType), linewidth = .1) +
+  geom_path(data = ellipse_pca, aes(x = x, y = y, colour = glassType), linewidth = 1L) +
   scale_color_brewer(palette = "Set1", direction = 1) +
-  labs(x = "PC1", y = "PC2") +
+  labs(
+    x = "PC1", 
+    y = "PC2",
+    title = "Principal component analysis") +
   theme_bw() +
   theme(legend.position = "none")
 ```

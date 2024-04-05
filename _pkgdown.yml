@@ -1,4 +1,6 @@
 url: ~
 template:
   bootstrap: 5
-
+author:
+  Christian L. Goueguel:
+    href: christian.goueguel@gmail.com

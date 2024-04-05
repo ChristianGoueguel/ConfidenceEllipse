@@ -1,11 +1,8 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-
-# ConfidenceEllipse
-
-<img src="man/figures/logo.png" align="right" height="239" alt="" />
-
 <!-- badges: start -->
+
+# ConfidenceEllipse <img src="man/figures/logo.png" align="right" height="239" alt="" />
 
 [![R-CMD-check](https://github.com/ChristianGoueguel/ConfidenceEllipse/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ChristianGoueguel/ConfidenceEllipse/actions/workflows/R-CMD-check.yaml)
 [![Project Status: Active – The project has reached a stable, usable
@@ -18,14 +15,13 @@ MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/
 [![codecov](https://codecov.io/gh/ChristianGoueguel/ConfidenceEllipse/graph/badge.svg?token=JAGMXN2F70)](https://codecov.io/gh/ChristianGoueguel/ConfidenceEllipse)
 <!-- badges: end -->
 
-The objective of the `ConfidenceEllipse` package is to compute the
-coordinate points of confidence ellipses and ellipsoids for a given
-bivariate and trivariate normal data. The size of the ellipse and
-ellipsoid is determined by the confidence level, and the shape is
-determined by the correlation structure between the variables. The
-confidence level is usually chosen to be 95% or 99%, and the resulting
-confidence region contains the points that are expected to lie within
-the multivariate distribution.
+The `ConfidenceEllipse` package computes the coordinate points of
+confidence ellipses and ellipsoids for a given bivariate and trivariate
+normal data. The size of the ellipse and ellipsoid is determined by the
+confidence level, and the shape is determined by the correlation
+structure between the variables. The confidence level is usually chosen
+to be 95% or 99%, and the resulting confidence region contains the
+points that are expected to lie within the multivariate distribution.
 
 ## Installation
 
@@ -108,12 +104,15 @@ ellipse_99 %>% glimpse()
 
 ``` r
 ggplot() +
-  geom_point(data = ellipse_99, aes(x = x, y = y), color = "red", size = .1) +
-  geom_point(data = ellipse_95, aes(x = x, y = y), color = "blue", size = .1) +
-  geom_point(data = ellipse_90, aes(x = x, y = y), color = "green", size = .1) +
+  geom_path(data = ellipse_99, aes(x = x, y = y), color = "red", linewidth = 1L) +
+  geom_path(data = ellipse_95, aes(x = x, y = y), color = "blue", linewidth = 1L) +
+  geom_path(data = ellipse_90, aes(x = x, y = y), color = "green", linewidth = 1L) +
   geom_point(data = glass, aes(x = SiO2, y = Na2O), color = "black", size = 3L) +
   scale_color_brewer(palette = "Set1", direction = 1) +
-  labs(x = "SiO2 (wt.%)", y = "Na2O (wt.%)") +
+  labs(
+    x = "SiO2 (wt.%)", 
+    y = "Na2O (wt.%)",
+    title = "Confidence ellipses at 90%, 95%, and 99% levels") +
   theme_bw() +
   theme(legend.position = "none")
 ```
@@ -136,37 +135,6 @@ type, you may need to convert it to a factor using functions like
 `as.factor()` or `forcats::as_factor()`.
 
 ``` r
-ellipse_grp <- glass %>% confidence_ellipse(SiO2, Na2O, glassType)
-```
-
-``` r
-ellipse_grp %>% glimpse()
-#> Rows: 1,444
-#> Columns: 3
-#> $ x         <dbl> 59.59996, 59.59948, 59.60135, 59.60557, 59.61214, 59.62106, …
-#> $ y         <dbl> 14.71814, 14.65429, 14.59039, 14.52647, 14.46255, 14.39864, …
-#> $ glassType <fct> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
-```
-
-``` r
-ggplot() +
-  geom_point(data = glass, aes(x = SiO2, y = Na2O, colour = glassType, shape = glassType), size = 3L) +
-  geom_line(data = ellipse_grp, aes(x = x, y = y, colour = glassType), linewidth = .1) +
-  xlim(50, 75) +
-  ylim(0, 20) +
-  scale_color_brewer(palette = "Set1", direction = 1) +
-  labs(x = "SiO2 (wt.%)", y = "Na2O (wt.%)") +
-  theme_bw() +
-  theme(legend.position = "none")
-#> Warning: Removed 12 rows containing missing values or values outside the scale range
-#> (`geom_line()`).
-```
-
-<img src="man/figures/README-unnamed-chunk-12-1.png" width="100%" />
-
-#### Principal Component Analysis
-
-``` r
 rpca_scores <- glass %>%
   select(where(is.numeric) )%>% 
   pcaPP::PCAproj(method = "qn") %>%
@@ -178,20 +146,23 @@ rpca_scores <- glass %>%
 
 ``` r
 ellipse_pca <- rpca_scores %>%
-confidence_ellipse(PC1, PC2, glassType)
+confidence_ellipse(x = PC1, y = PC2, .group_by = glassType)
 ```
 
 ``` r
 ggplot() +
   geom_point(data = rpca_scores, aes(x = PC1, y = PC2, colour = glassType, shape = glassType), size = 3L) +
-  geom_line(data = ellipse_pca, aes(x = x, y = y, colour = glassType), linewidth = .1) +
+  geom_path(data = ellipse_pca, aes(x = x, y = y, colour = glassType), linewidth = 1L) +
   scale_color_brewer(palette = "Set1", direction = 1) +
-  labs(x = "PC1", y = "PC2") +
+  labs(
+    x = "PC1", 
+    y = "PC2",
+    title = "Principal component analysis") +
   theme_bw() +
   theme(legend.position = "none")
 ```
 
-<img src="man/figures/README-unnamed-chunk-15-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-12-1.png" width="100%" />
 
 ### Confidence Ellipsoid
 
@@ -236,4 +207,4 @@ rgl::points3d(
 rgl::view3d(theta = 260, phi = 30, fov = 60, zoom = .85)
 ```
 
-<img src="man/figures/README-unnamed-chunk-18-1-rgl.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-15-1-rgl.png" width="100%" />
