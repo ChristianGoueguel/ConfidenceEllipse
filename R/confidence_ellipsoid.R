@@ -8,9 +8,7 @@
 #' @param conf_level The confidence level for the ellipse (0.95 by default).
 #' @return A data frame of the coordinates points of the ellipse.
 #' @export confidence_ellipsoid
-
 confidence_ellipsoid <- function(.data, x, y, z, .group_by = NULL, conf_level = 0.95) {
-
   if (missing(.data)) {
     stop("Missing 'data' argument.")
   }
@@ -23,14 +21,14 @@ confidence_ellipsoid <- function(.data, x, y, z, .group_by = NULL, conf_level = 
   if (conf_level < 0 || conf_level > 1) {
     stop("'conf_level' must be between 0 and 1.")
   }
-
   transform_data <- function(.x, conf_level) {
     mean_vec <- colMeans(.x)
-    cov_mat <- stats::cov(.x)
-    if (any(is.na(cov_mat))) {
-      stop("Warning: The covariance matrix is singular.")
-    } else {
-      eig <- eigen(cov_mat)
+    cov_matrix <- stats::cov(.x)
+    if (any(is.na(cov_matrix))) {
+      stop("Covariance matrix contains NA values.")
+    }
+    else {
+      eig <- eigen(cov_matrix)
       theta <- seq(0, 2 * pi, length.out = 50)
       phi <- seq(0, pi, length.out = 50)
       grid <- expand.grid(Theta = theta, Phi = phi)
@@ -38,8 +36,8 @@ confidence_ellipsoid <- function(.data, x, y, z, .group_by = NULL, conf_level = 
       Y <- sqrt(eig$values[2] * stats::qchisq(conf_level, 3)) * sin(grid$Phi) * sin(grid$Theta)
       Z <- sqrt(eig$values[3] * stats::qchisq(conf_level, 3)) * cos(grid$Phi)
       R <- cbind(X, Y, Z) %*% t(eig$vectors)
-      res <- R + matrix(rep(mean_vec, nrow(R)), ncol = length(mean_vec), byrow = TRUE)
-      return(res)
+      result <- R + matrix(rep(mean_vec, nrow(R)), ncol = length(mean_vec), byrow = TRUE)
+      return(result)
     }
   }
   if (rlang::quo_is_null(rlang::enquo(.group_by))) {

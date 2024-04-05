@@ -26,7 +26,11 @@ Roxygen: list(markdown = TRUE)
 URL: https://christiangoueguel.github.io/ConfidenceEllipse/
 Suggests: 
     knitr,
-    rmarkdown
+    rmarkdown,
+    spelling,
+    testthat (>= 3.0.0)
 VignetteBuilder: knitr
 Depends: 
     R (>= 2.10)
+Language: en-US
+Config/testthat/edition: 3

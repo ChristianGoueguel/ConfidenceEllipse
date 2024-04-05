@@ -8,9 +8,7 @@
 #' @param conf_level The confidence level for the ellipse (0.95 by default).
 #' @return A data frame of the coordinates points of the ellipse.
 #' @export confidence_ellipse
-
 confidence_ellipse <- function(.data, x, y, .group_by = NULL, conf_level = 0.95) {
-
   if (missing(.data)) {
     stop("Missing 'data' argument.")
   }
@@ -20,24 +18,23 @@ confidence_ellipse <- function(.data, x, y, .group_by = NULL, conf_level = 0.95)
   if (!is.numeric(conf_level)) {
     stop("'conf_level' must be numeric.")
   }
-  if (conf_level < 0 && conf_level > 1) {
+  if (conf_level < 0 || conf_level > 1) {
     stop("'conf_level' must be between 0 and 1.")
   }
-
   transform_data <- function(.x, conf_level) {
     mean_vec <- colMeans(.x)
-    cov_mat <- stats::cov(.x)
-    if (any(is.na(cov_mat))) {
-      stop("warning: the covariance matrix is singular")
+    cov_matrix <- stats::cov(.x)
+    if (any(is.na(cov_matrix))) {
+      stop("Covariance matrix contains NA values.")
     }
     else {
-      eig <- eigen(cov_mat)
+      eig <- eigen(cov_matrix)
       theta <- (2 * pi * seq(0, 360, 1)) / 360
       X <- sqrt(eig$values[1] * stats::qchisq(conf_level, 2)) * cos(theta)
       Y <- sqrt(eig$values[2] * stats::qchisq(conf_level, 2)) * sin(theta)
       R <- cbind(X, Y) %*% t(eig$vectors)
-      res <- R + matrix(rep(t(mean_vec), 361), ncol = ncol(t(mean_vec)), byrow = TRUE)
-      return(res)
+      result <- R + matrix(rep(t(mean_vec), 361), ncol = ncol(t(mean_vec)), byrow = TRUE)
+      return(result)
     }
   }
   if (rlang::quo_is_null(rlang::enquo(.group_by))) {
