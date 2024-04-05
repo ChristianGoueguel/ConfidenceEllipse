@@ -25,6 +25,14 @@ A data frame of the coordinates points of the ellipse.
 \description{
 A Function that Computes the 3D Confidence Ellipsoid Coordinates for Trivariate Normal Data (with Optional Grouping)
 }
+\examples{
+# Data
+data("glass", package = "ConfidenceEllipse")
+# Confidence ellipsoid
+ellipsoid <- confidence_ellipsoid(.data = glass, x = SiO2, y = Na2O, z = Fe2O3)
+ellipsoid_grp <- confidence_ellipsoid(.data = glass, x = SiO2, y = Na2O, z = Fe2O3, .group_by = glassType)
+
+}
 \author{
 Christian L. Goueguel
 }

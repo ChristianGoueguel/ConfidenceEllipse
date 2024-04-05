@@ -17,4 +17,8 @@ Useful links:
 }
 
 }
+\author{
+\strong{Maintainer}: Christian L. Goueguel \email{christian.goueguel@gmail.com} (\href{https://orcid.org/0000-0003-0521-3446}{ORCID})
+
+}
 \keyword{internal}

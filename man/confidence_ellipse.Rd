@@ -23,6 +23,14 @@ A data frame of the coordinates points of the ellipse.
 \description{
 This function computes a confidence ellipse (assuming bivariate normality) at a specified confidence level.
 }
+\examples{
+# Data
+data("glass", package = "ConfidenceEllipse")
+# Confidence ellipse
+ ellipse <- confidence_ellipse(.data = glass, x = SiO2, y = Na2O)
+ ellipse_grp <- confidence_ellipse(.data = glass, x = SiO2, y = Na2O, .group_by = glassType)
+
+}
 \author{
 Christian L. Goueguel
 }
