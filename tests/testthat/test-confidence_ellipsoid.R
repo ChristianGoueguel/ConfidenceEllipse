@@ -33,6 +33,13 @@ test_that("function stops with invalid conf_level", {
       z = Na2O,
       conf_level = 37),
     "'conf_level' must be between 0 and 1.")
+  expect_error(
+    confidence_ellipsoid(
+      .data = glass,
+      x = BaO,
+      y = PbO,
+      conf_level = -.95),
+    "'conf_level' must be between 0 and 1.")
 })
 test_that("function returns a data frame or tibble", {
   result <- confidence_ellipsoid(glass, BaO, PbO, Na2O)
