@@ -1,5 +1,10 @@
 ## R CMD check results
 
-0 errors | 0 warnings | 1 note
+NOTE: The Description field should not start with the package name,
+'This package' or similar....Fixed
+NOTE: Found the following (possibly) invalid URLs...Fixed
+NOTE: Rd line widths...Fixed
 
-* This is a new release.
+0 errors | 0 warnings | 0 note
+
+* This is a resubmission.
