@@ -9,7 +9,7 @@ Authors@R:
            email = "christian.goueguel@gmail.com",
            comment = c(ORCID = "https://orcid.org/0000-0003-0521-3446"))
 Maintainer: Christian L. Goueguel <christian.goueguel@gmail.com>
-Description: This package provided a function to calculate confidence ellipses and ellipsoids for a given confidence level.
+Description: Functions designed to calculate confidence ellipses and ellipsoids at a specified confidence level.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

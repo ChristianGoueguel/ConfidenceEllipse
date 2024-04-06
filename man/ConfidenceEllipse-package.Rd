@@ -8,12 +8,14 @@
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-This package provided a function to calculate confidence ellipses and ellipsoids for a given confidence level.
+Functions designed to calculate confidence ellipses and ellipsoids at a specified confidence level.
 }
 \seealso{
 Useful links:
 \itemize{
   \item \url{https://christiangoueguel.github.io/ConfidenceEllipse/}
+  \item \url{https://github.com/ChristianGoueguel/ConfidenceEllipse}
+  \item Report bugs at \url{https://github.com/ChristianGoueguel/ConfidenceEllipse/issues}
 }
 
 }

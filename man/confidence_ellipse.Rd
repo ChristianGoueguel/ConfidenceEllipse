@@ -27,8 +27,13 @@ This function computes a confidence ellipse (assuming bivariate normality) at a 
 # Data
 data("glass", package = "ConfidenceEllipse")
 # Confidence ellipse
- ellipse <- confidence_ellipse(.data = glass, x = SiO2, y = Na2O)
- ellipse_grp <- confidence_ellipse(.data = glass, x = SiO2, y = Na2O, .group_by = glassType)
+ellipse <- confidence_ellipse(.data = glass, x = SiO2, y = Na2O)
+ellipse_grp <- confidence_ellipse(
+.data = glass,
+x = SiO2,
+y = Na2O,
+.group_by = glassType
+)
 
 }
 \author{

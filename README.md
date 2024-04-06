@@ -12,16 +12,16 @@ developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.re
 stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![License:
 MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![codecov](https://codecov.io/gh/ChristianGoueguel/ConfidenceEllipse/graph/badge.svg?token=JAGMXN2F70)](https://codecov.io/gh/ChristianGoueguel/ConfidenceEllipse)
+[![codecov](https://codecov.io/gh/ChristianGoueguel/ConfidenceEllipse/graph/badge.svg?token=JAGMXN2F70)](https://app.codecov.io/gh/ChristianGoueguel/ConfidenceEllipse)
 <!-- badges: end -->
 
 The `ConfidenceEllipse` package computes the coordinate points of
 confidence ellipses and ellipsoids for a given bivariate and trivariate
 normal data. The size of the ellipse and ellipsoid is determined by the
-confidence level, and the shape is determined by the correlation
-structure between the variables. The confidence level is usually chosen
-to be 95% or 99%, and the resulting confidence region contains the
-points that are expected to lie within the multivariate distribution.
+confidence level, and the shape is determined by the covariance matrix.
+The confidence level is usually chosen to be 95% or 99%, and the
+resulting confidence region contains the points that are expected to lie
+within the multivariate distribution.
 
 ## Installation
 

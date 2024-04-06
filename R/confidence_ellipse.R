@@ -12,8 +12,13 @@
 #' # Data
 #' data("glass", package = "ConfidenceEllipse")
 #' # Confidence ellipse
-#'  ellipse <- confidence_ellipse(.data = glass, x = SiO2, y = Na2O)
-#'  ellipse_grp <- confidence_ellipse(.data = glass, x = SiO2, y = Na2O, .group_by = glassType)
+#' ellipse <- confidence_ellipse(.data = glass, x = SiO2, y = Na2O)
+#' ellipse_grp <- confidence_ellipse(
+#' .data = glass,
+#' x = SiO2,
+#' y = Na2O,
+#' .group_by = glassType
+#' )
 #'
 confidence_ellipse <- function(.data, x, y, .group_by = NULL, conf_level = 0.95) {
   if (missing(.data)) {

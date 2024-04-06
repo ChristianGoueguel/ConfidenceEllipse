@@ -30,7 +30,13 @@ A Function that Computes the 3D Confidence Ellipsoid Coordinates for Trivariate 
 data("glass", package = "ConfidenceEllipse")
 # Confidence ellipsoid
 ellipsoid <- confidence_ellipsoid(.data = glass, x = SiO2, y = Na2O, z = Fe2O3)
-ellipsoid_grp <- confidence_ellipsoid(.data = glass, x = SiO2, y = Na2O, z = Fe2O3, .group_by = glassType)
+ellipsoid_grp <- confidence_ellipsoid(
+.data = glass,
+x = SiO2,
+y = Na2O,
+z = Fe2O3,
+.group_by = glassType
+)
 
 }
 \author{
