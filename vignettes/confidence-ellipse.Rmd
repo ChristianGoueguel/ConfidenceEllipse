@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-A confidence ellipse is a graphical representation that shows the variability or uncertainty in estimates of the mean values of two normally distributed variables in a bivariate dataset. It is an extension of the concept of a confidence interval, which is used for a single variable. The ellipse is centered at the point representing the sample mean values of the two variables. Its size and shape are determined by the chosen confidence level (e.g., 95%) and the covariance matrix of the variables.
+Confidence ellipses are extension of the concept of a confidence interval, which is used for a single variable. The ellipse is centered at the point representing the sample mean values of the two variables. Its size and shape are determined by the chosen confidence level (e.g., 95%) and the covariance matrix.
 
 ```{r message=FALSE, warning=FALSE}
 library(magrittr)

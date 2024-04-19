@@ -17,7 +17,7 @@ MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/
 
 The `ConfidenceEllipse` package computes the coordinate points of
 confidence ellipses and ellipsoids for a given bivariate and trivariate
-normal data. The size of the ellipse and ellipsoid is determined by the
+dataset. The size of the ellipse and ellipsoid is determined by the
 confidence level, and the shape is determined by the covariance matrix.
 The confidence level is usually chosen to be 95% or 99%, and the
 resulting confidence region contains the points that are expected to lie
@@ -82,7 +82,7 @@ glass %>% glimpse()
 
 ### Confidence Region
 
-#### Ellipse
+#### Classical and robust confidence ellipse
 
 First, the `confidence_ellipse` function is used to compute coordinate
 points of the confidence ellipse and then the ellipse is plotted on a
