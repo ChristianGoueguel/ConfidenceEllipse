@@ -1,12 +1,13 @@
-#' @title A Function that Computes the Confidence Ellipse Coordinates for Bivariate Normal Data (with Optional Grouping)
+#' @title Confidence Ellipse Coordinates
 #' @author Christian L. Goueguel
-#' @description This function computes a confidence ellipse (assuming bivariate normality) at a specified confidence level.
-#' @param .data The data frame or tibble.
-#' @param x The unquoted column name for the x-axis variable.
-#' @param y The unquoted column name for the y-axis variable.
-#' @param .group_by The unquoted column name for the grouping variable (optional). Note that this grouping variable must be a factor.
-#' @param conf_level The confidence level for the ellipse (0.95 by default).
-#' @return A data frame of the coordinates points of the ellipse.
+#' @description Compute the coordinate points of confidence ellipses at a specified confidence level.
+#' @param .data data frame or tibble.
+#' @param x column name for the x-axis variable.
+#' @param y column name for the y-axis variable.
+#' @param .group_by column name for the grouping variable (`NULL` by default). Note that this grouping variable must be a factor.
+#' @param conf_level confidence level for the ellipse (0.95 by default).
+#' @param robust optional (`FALSE` by default). When set to `TRUE`, it indicates that robust estimation method is employed to calculate the coordinates of the ellipse. The location is the 1-step M-estimator with the biweight psi function. The scale is the Minimum Covariance Determinant (MCD) estimator. Raymaekers and Rousseeuw (2019).
+#' @return Data frame of the coordinates points.
 #' @export confidence_ellipse
 #' @examples
 #' # Data
@@ -20,7 +21,7 @@
 #' .group_by = glassType
 #' )
 #'
-confidence_ellipse <- function(.data, x, y, .group_by = NULL, conf_level = 0.95) {
+confidence_ellipse <- function(.data, x, y, .group_by = NULL, conf_level = 0.95, robust = FALSE) {
   if (missing(.data)) {
     stop("Missing 'data' argument.")
   }
@@ -34,8 +35,15 @@ confidence_ellipse <- function(.data, x, y, .group_by = NULL, conf_level = 0.95)
     stop("'conf_level' must be between 0 and 1.")
   }
   transform_data <- function(.x, conf_level) {
-    mean_vec <- colMeans(.x)
-    cov_matrix <- stats::cov(.x)
+    if (robust == FALSE) {
+      mean_vec <- colMeans(.x)
+      cov_matrix <- stats::cov(.x)
+    } else {
+      locScale <- cellWise::estLocScale(.x, type = "wrap", center = TRUE, nLocScale = 50e3)
+      X_wrap <- cellWise::wrap(.x, locScale[["loc"]], locScale[["scale"]], imputeNA = FALSE, checkPars = list(coreOnly = TRUE)) %>% purrr::pluck("Xw")
+      mean_vec <- colMeans(X_wrap)
+      cov_matrix <- stats::cov(X_wrap)
+    }
     if (any(is.na(cov_matrix))) {
       stop("Covariance matrix contains NA values.")
     }

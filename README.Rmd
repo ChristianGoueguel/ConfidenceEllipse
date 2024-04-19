@@ -9,7 +9,8 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "man/figures/README-",
-  out.width = "100%"
+  out.width = "100%",
+  fig.retina = 2
 )
 ```
 
@@ -45,6 +46,7 @@ You can install the development version of `ConfidenceEllipse` like so:
 ```{r message=FALSE, warning=FALSE}
 library(magrittr)
 library(tidyselect)
+library(patchwork)
 library(dplyr)
 library(ggplot2)
 library(purrr)
@@ -71,36 +73,93 @@ data("glass", package = "ConfidenceEllipse")
 glass %>% glimpse()
 ```
 
-### Confidence Ellipse
+### Confidence Region
+#### Ellipse
 
 First, the `confidence_ellipse` function is used to compute coordinate points of the confidence ellipse and then the ellipse is plotted on a two-dimensional plot `x` and `y` of the data. Points that lie outside the ellipse are considered to be outliers, while points that lie within the ellipse are considered to be part of the underlying distribution with the specified confidence level `conf_level`.
 
 ```{r message=FALSE, warning=FALSE}
-ellipse_99 <- confidence_ellipse(glass, x = SiO2, y = Na2O, conf_level = 0.99)
 ellipse_95 <- confidence_ellipse(glass, x = SiO2, y = Na2O, conf_level = 0.95)
-ellipse_90 <- confidence_ellipse(glass, x = SiO2, y = Na2O, conf_level = 0.90)
+rob_ellipse_95 <- confidence_ellipse(glass, x = SiO2, y = Na2O, conf_level = 0.95, robust = TRUE)
 ```
 
 ```{r message=FALSE, warning=FALSE}
-ellipse_99 %>% glimpse()
+ellipse_95 %>% glimpse()
 ```
 
 ```{r}
-ggplot() +
-  geom_path(data = ellipse_99, aes(x = x, y = y), color = "red", linewidth = 1L) +
+cutoff <- qchisq(0.95, df = 2)
+ MDsquared <- glass %>%
+  select(SiO2, Na2O) %>%
+  as.matrix() %>%
+  mahalanobis(colMeans(.), cov(.), inverted = FALSE)
+```
+
+```{r}
+plot1 <- 
+  ggplot() +
   geom_path(data = ellipse_95, aes(x = x, y = y), color = "blue", linewidth = 1L) +
-  geom_path(data = ellipse_90, aes(x = x, y = y), color = "green", linewidth = 1L) +
-  geom_point(data = glass, aes(x = SiO2, y = Na2O), color = "black", size = 3L) +
-  scale_color_brewer(palette = "Set1", direction = 1) +
+  geom_point(
+    data = glass %>% 
+      mutate(md = MDsquared) %>%
+      filter(md <= cutoff),
+    aes(x = SiO2, y = Na2O),
+    shape = 21L, color = "black", fill = "lightblue", size = 3L) +
+  geom_point(
+    data = glass %>% 
+      mutate(md = MDsquared) %>%
+      filter(md > cutoff),
+    aes(x = SiO2, y = Na2O),
+    shape = 21L, color = "black", fill = "gold", size = 3L) +
   labs(
     x = "SiO2 (wt.%)", 
     y = "Na2O (wt.%)",
-    title = "Confidence ellipses at 90%, 95%, and 99% levels") +
+    title = "Classical confidence ellipse\nat 95% confidence level") +
   theme_bw() +
   theme(legend.position = "none")
 ```
 
-#### Grouping
+```{r}
+x_mcd <- glass %>%
+  select(SiO2, Na2O) %>%
+  as.matrix() %>%
+  robustbase::covMcd()
+
+rob_MDsquared <- glass %>%
+  select(SiO2, Na2O) %>%
+  as.matrix() %>%
+  mahalanobis(x_mcd$center, x_mcd$cov)
+```
+
+```{r}
+plot2 <- 
+  ggplot() +
+  geom_path(data = rob_ellipse_95, aes(x = x, y = y), color = "blue", linewidth = 1L) +
+  geom_point(
+    data = glass %>% 
+      mutate(md = rob_MDsquared) %>%
+      filter(md <= cutoff),
+    aes(x = SiO2, y = Na2O),
+    shape = 21L, color = "black", fill = "lightblue", size = 3L) +
+  geom_point(
+    data = glass %>% 
+      mutate(md = rob_MDsquared) %>%
+      filter(md > cutoff),
+    aes(x = SiO2, y = Na2O),
+    shape = 21L, color = "black", fill = "gold", size = 3L) +
+  labs(
+    x = "SiO2 (wt.%)", 
+    y = "Na2O (wt.%)",
+    title = "Robust confidence ellipse\nat 95% confidence level") +
+  theme_bw() +
+  theme(legend.position = "none")
+```
+
+```{r}
+plot1 | plot2
+```
+
+##### Grouping
 
 For grouping bivariate data, the `.group_by` argument can be used if the data contains an unique grouping variable (`.group_by = NULL` by default). When a grouping variable is provided, the function will compute the ellipses separately for each level of the factor, allowing you to explore potential differences or patterns within subgroups of the data.
 
@@ -117,30 +176,25 @@ rpca_scores <- glass %>%
 ```
 
 ```{r message=FALSE, warning=FALSE}
-ellipse_pca <- rpca_scores %>%
-confidence_ellipse(x = PC1, y = PC2, .group_by = glassType)
+ellipse_pca <- rpca_scores %>% confidence_ellipse(x = PC1, y = PC2, .group_by = glassType)
 ```
 
 ```{r}
 ggplot() +
-  geom_point(data = rpca_scores, aes(x = PC1, y = PC2, colour = glassType, shape = glassType), size = 3L) +
-  geom_path(data = ellipse_pca, aes(x = x, y = y, colour = glassType), linewidth = 1L) +
+  geom_point(data = rpca_scores, aes(x = PC1, y = PC2, color = glassType, shape = glassType), size = 3L) +
+  geom_path(data = ellipse_pca, aes(x = x, y = y, color = glassType), linewidth = 1L) +
   scale_color_brewer(palette = "Set1", direction = 1) +
-  labs(
-    x = "PC1", 
-    y = "PC2",
-    title = "Principal component analysis") +
+  labs(x = "PC1", y = "PC2", title = "Principal component analysis") +
   theme_bw() +
   theme(legend.position = "none")
 ```
 
-### Confidence Ellipsoid
+#### Ellipsoid
 
 The `confidence_ellipsoid` function accepts an additional variable `z` and computes the ellipsoid for trivariate data.
 
 ```{r message=FALSE, warning=FALSE}
-ellipsoid_grp <- glass %>% 
-  confidence_ellipsoid(SiO2, Na2O, Fe2O3, glassType)
+ellipsoid_grp <- glass %>% confidence_ellipsoid(SiO2, Na2O, Fe2O3, glassType)
 ```
 
 ```{r}

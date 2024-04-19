@@ -2,6 +2,8 @@
 "_PACKAGE"
 
 ## usethis namespace: start
+#' @importFrom cellWise estLocScale
+#' @importFrom cellWise wrap
 #' @importFrom forcats as_factor
 #' @importFrom ggplot2 aes
 #' @importFrom ggplot2 geom_line

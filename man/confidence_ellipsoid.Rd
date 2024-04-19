@@ -2,28 +2,38 @@
 % Please edit documentation in R/confidence_ellipsoid.R
 \name{confidence_ellipsoid}
 \alias{confidence_ellipsoid}
-\title{A Function that Computes the 3D Confidence Ellipsoid Coordinates for Trivariate Normal Data (with Optional Grouping)}
+\title{Confidence Ellipsoid Coordinates}
 \usage{
-confidence_ellipsoid(.data, x, y, z, .group_by = NULL, conf_level = 0.95)
+confidence_ellipsoid(
+  .data,
+  x,
+  y,
+  z,
+  .group_by = NULL,
+  conf_level = 0.95,
+  robust = FALSE
+)
 }
 \arguments{
-\item{.data}{The data frame or tibble.}
+\item{.data}{data frame or tibble.}
 
-\item{x}{The unquoted column name for the x-axis variable.}
+\item{x}{column name for the x-axis variable.}
 
-\item{y}{The unquoted column name for the y-axis variable.}
+\item{y}{column name for the y-axis variable.}
 
-\item{z}{The unquoted column name for the z-axis variable.}
+\item{z}{column name for the z-axis variable.}
 
-\item{.group_by}{The unquoted column name for the grouping variable (optional). Note that this grouping variable must be a factor.}
+\item{.group_by}{column name for the grouping variable (\code{NULL} by default). Note that this grouping variable must be a factor.}
 
-\item{conf_level}{The confidence level for the ellipse (0.95 by default).}
+\item{conf_level}{confidence level for the ellipsoid (0.95 by default).}
+
+\item{robust}{optional (\code{FALSE} by default). When set to \code{TRUE}, it indicates that robust estimation method is employed to calculate the coordinates of the ellipsoid. The location is the 1-step M-estimator with the biweight psi function. The scale is the Minimum Covariance Determinant (MCD) estimator. Raymaekers and Rousseeuw (2019).}
 }
 \value{
-A data frame of the coordinates points of the ellipse.
+Data frame of the coordinate points.
 }
 \description{
-A Function that Computes the 3D Confidence Ellipsoid Coordinates for Trivariate Normal Data (with Optional Grouping)
+Compute the coordinate points of confidence ellipsoids at a specified confidence level.
 }
 \examples{
 # Data

@@ -1,6 +1,6 @@
 Package: ConfidenceEllipse
 Type: Package
-Title: Computation of 2D and 3D Confidence Ellipse Coordinates
+Title: Computation of 2D and 3D Elliptical Joint Confidence Regions
 Version: 1.0.0
 Authors@R: 
     person(given = "Christian L.",
@@ -9,12 +9,13 @@ Authors@R:
            email = "christian.goueguel@gmail.com",
            comment = c(ORCID = "https://orcid.org/0000-0003-0521-3446"))
 Maintainer: Christian L. Goueguel <christian.goueguel@gmail.com>
-Description: Functions designed to calculate confidence ellipses and ellipsoids at a specified confidence level.
+Description: Computing elliptical joint confidence regions at a specified confidence level. It provides the flexibility to estimate either classical or robust confidence regions, which can be visualized in 2D or 3D plots. The classical approach assumes normality and uses the mean and covariance matrix to define the confidence regions. Alternatively, the robustified version employs estimators like minimum covariance determinant (MCD) and M-estimator, making them less sensitive to outliers and departures from normality. Furthermore, the functions allow users to group the dataset based on categorical variables and estimate separate confidence regions for each group. This capability is particularly useful for exploring potential differences or similarities across subgroups within a dataset. Varmuza and Filzmoser (2009, ISBN:978-1-4200-5947-2). Johnson and Wichern (2007, ISBN:0-13-187715-1). Raymaekers and Rousseeuw (2019) <DOI:10.1080/00401706.2019.1677270>.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.3.1
 Imports: 
+    cellWise,
     dplyr,
     forcats,
     ggplot2,

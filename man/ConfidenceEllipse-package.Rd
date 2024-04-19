@@ -4,11 +4,11 @@
 \name{ConfidenceEllipse-package}
 \alias{ConfidenceEllipse}
 \alias{ConfidenceEllipse-package}
-\title{ConfidenceEllipse: Computation of 2D and 3D Confidence Ellipse Coordinates}
+\title{ConfidenceEllipse: Computation of 2D and 3D Elliptical Joint Confidence Regions}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-Functions designed to calculate confidence ellipses and ellipsoids at a specified confidence level.
+Computing elliptical joint confidence regions at a specified confidence level. It provides the flexibility to estimate either classical or robust confidence regions, which can be visualized in 2D or 3D plots. The classical approach assumes normality and uses the mean and covariance matrix to define the confidence regions. Alternatively, the robustified version employs estimators like minimum covariance determinant (MCD) and M-estimator, making them less sensitive to outliers and departures from normality. Furthermore, the functions allow users to group the dataset based on categorical variables and estimate separate confidence regions for each group. This capability is particularly useful for exploring potential differences or similarities across subgroups within a dataset. Varmuza and Filzmoser (2009, ISBN:978-1-4200-5947-2). Johnson and Wichern (2007, ISBN:0-13-187715-1). Raymaekers and Rousseeuw (2019) \doi{10.1080/00401706.2019.1677270}.
 }
 \seealso{
 Useful links:

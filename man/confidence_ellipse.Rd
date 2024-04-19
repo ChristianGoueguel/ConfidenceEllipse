@@ -2,26 +2,35 @@
 % Please edit documentation in R/confidence_ellipse.R
 \name{confidence_ellipse}
 \alias{confidence_ellipse}
-\title{A Function that Computes the Confidence Ellipse Coordinates for Bivariate Normal Data (with Optional Grouping)}
+\title{Confidence Ellipse Coordinates}
 \usage{
-confidence_ellipse(.data, x, y, .group_by = NULL, conf_level = 0.95)
+confidence_ellipse(
+  .data,
+  x,
+  y,
+  .group_by = NULL,
+  conf_level = 0.95,
+  robust = FALSE
+)
 }
 \arguments{
-\item{.data}{The data frame or tibble.}
+\item{.data}{data frame or tibble.}
 
-\item{x}{The unquoted column name for the x-axis variable.}
+\item{x}{column name for the x-axis variable.}
 
-\item{y}{The unquoted column name for the y-axis variable.}
+\item{y}{column name for the y-axis variable.}
 
-\item{.group_by}{The unquoted column name for the grouping variable (optional). Note that this grouping variable must be a factor.}
+\item{.group_by}{column name for the grouping variable (\code{NULL} by default). Note that this grouping variable must be a factor.}
 
-\item{conf_level}{The confidence level for the ellipse (0.95 by default).}
+\item{conf_level}{confidence level for the ellipse (0.95 by default).}
+
+\item{robust}{optional (\code{FALSE} by default). When set to \code{TRUE}, it indicates that robust estimation method is employed to calculate the coordinates of the ellipse. The location is the 1-step M-estimator with the biweight psi function. The scale is the Minimum Covariance Determinant (MCD) estimator. Raymaekers and Rousseeuw (2019).}
 }
 \value{
-A data frame of the coordinates points of the ellipse.
+Data frame of the coordinates points.
 }
 \description{
-This function computes a confidence ellipse (assuming bivariate normality) at a specified confidence level.
+Compute the coordinate points of confidence ellipses at a specified confidence level.
 }
 \examples{
 # Data
