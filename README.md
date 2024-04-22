@@ -13,6 +13,10 @@ stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://
 [![License:
 MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![codecov](https://codecov.io/gh/ChristianGoueguel/ConfidenceEllipse/graph/badge.svg?token=JAGMXN2F70)](https://app.codecov.io/gh/ChristianGoueguel/ConfidenceEllipse)
+[![](https://cranlogs.r-pkg.org/badges/last-week/ConfidenceEllipse?color=orange)](https://cran.r-project.org/package=ConfidenceEllipse)
+[![](https://cranlogs.r-pkg.org/badges/ConfidenceEllipse?color=yellowgreen)](https://cran.r-project.org/package=ConfidenceEllipse)
+[![](https://cranlogs.r-pkg.org/badges/grand-total/ConfidenceEllipse)](https://cran.r-project.org/package=ConfidenceEllipse)
+
 <!-- badges: end -->
 
 The `ConfidenceEllipse` package computes the coordinate points of
@@ -25,11 +29,18 @@ within the multivariate distribution.
 
 ## Installation
 
-You can install the development version of `ConfidenceEllipse` like so:
+You can install `ConfidenceEllipse` from CRAN using:
 
 ``` r
-# install.packages("remotes")
-# remotes::install_github("ChristianGoueguel/ConfidenceEllipse")
+# install.packages("ConfidenceEllipse")
+```
+
+Alternatively you can grab the development version from github using
+devtools:
+
+``` r
+# install.packages("devtools")
+# devtools::install_github("ChristianGoueguel/ConfidenceEllipse")
 ```
 
 ## Example
@@ -176,7 +187,7 @@ plot2 <-
 plot1 | plot2
 ```
 
-<img src="man/figures/README-unnamed-chunk-13-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-14-1.png" width="100%" />
 
 ##### Grouping
 
@@ -217,7 +228,7 @@ ggplot() +
   theme(legend.position = "none")
 ```
 
-<img src="man/figures/README-unnamed-chunk-16-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-17-1.png" width="100%" />
 
 #### Ellipsoid
 
@@ -261,4 +272,4 @@ rgl::points3d(
 rgl::view3d(theta = 260, phi = 30, fov = 60, zoom = .85)
 ```
 
-<img src="man/figures/README-unnamed-chunk-19-1-rgl.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-20-1-rgl.png" width="100%" />
