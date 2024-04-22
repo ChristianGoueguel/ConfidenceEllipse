@@ -36,7 +36,7 @@ status](https://www.r-pkg.org/badges/version/ConfidenceEllipse)](https://CRAN.R-
 
 <!-- badges: end -->
 
-The `ConfidenceEllipse` package computes the coordinate points of confidence ellipses and ellipsoids for a given bivariate and trivariate dataset. The size of the ellipse and ellipsoid is determined by the confidence level, and the shape is determined by the covariance matrix. The confidence level is usually chosen to be 95% or 99%, and the resulting confidence region contains the points that are expected to lie within the multivariate distribution.
+The `ConfidenceEllipse` package computes the coordinate points of confidence region for a given bivariate and trivariate dataset. The size of the elliptical region is determined by the confidence level, and the shape is determined by the covariance matrix. The confidence level is usually chosen to be 95% or 99%, and the resulting confidence region contains the points that are expected to lie within the multivariate distribution.
 
 ## Installation
 
