@@ -79,20 +79,24 @@
 <img src="logo.png" class="logo" alt=""><h1 id="confidenceellipse-">ConfidenceEllipse <a class="anchor" aria-label="anchor" href="#confidenceellipse-"></a>
 </h1>
 </div>
-<p><a href="https://github.com/ChristianGoueguel/ConfidenceEllipse/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/ChristianGoueguel/ConfidenceEllipse/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a> <a href="https://www.repostatus.org/#active" class="external-link"><img src="https://www.repostatus.org/badges/latest/active.svg" alt="Project Status: Active – The project has reached a stable, usable state and is being actively developed."></a> <a href="https://lifecycle.r-lib.org/articles/stages.html#stable" class="external-link"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="Lifecycle: stable"></a> <a href="https://opensource.org/licenses/MIT" class="external-link"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a> <a href="https://app.codecov.io/gh/ChristianGoueguel/ConfidenceEllipse" class="external-link"><img src="https://codecov.io/gh/ChristianGoueguel/ConfidenceEllipse/graph/badge.svg?token=JAGMXN2F70" alt="codecov"></a> <!-- badges: end --></p>
+<p><a href="https://github.com/ChristianGoueguel/ConfidenceEllipse/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/ChristianGoueguel/ConfidenceEllipse/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a> <a href="https://www.repostatus.org/#active" class="external-link"><img src="https://www.repostatus.org/badges/latest/active.svg" alt="Project Status: Active – The project has reached a stable, usable state and is being actively developed."></a> <a href="https://lifecycle.r-lib.org/articles/stages.html#stable" class="external-link"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="Lifecycle: stable"></a> <a href="https://opensource.org/licenses/MIT" class="external-link"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a> <a href="https://app.codecov.io/gh/ChristianGoueguel/ConfidenceEllipse" class="external-link"><img src="https://codecov.io/gh/ChristianGoueguel/ConfidenceEllipse/graph/badge.svg?token=JAGMXN2F70" alt="codecov"></a> <a href="https://cran.r-project.org/package=ConfidenceEllipse" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/last-week/ConfidenceEllipse?color=orange"></a> <a href="https://cran.r-project.org/package=ConfidenceEllipse" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/ConfidenceEllipse?color=yellowgreen"></a> <a href="https://cran.r-project.org/package=ConfidenceEllipse" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/grand-total/ConfidenceEllipse"></a></p>
+<!-- badges: end -->
 <p>The <code>ConfidenceEllipse</code> package computes the coordinate points of confidence ellipses and ellipsoids for a given bivariate and trivariate dataset. The size of the ellipse and ellipsoid is determined by the confidence level, and the shape is determined by the covariance matrix. The confidence level is usually chosen to be 95% or 99%, and the resulting confidence region contains the points that are expected to lie within the multivariate distribution.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>You can install the development version of <code>ConfidenceEllipse</code> like so:</p>
+<p>You can install <code>ConfidenceEllipse</code> from CRAN using:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># install.packages("remotes")</span></span>
-<span><span class="co"># remotes::install_github("ChristianGoueguel/ConfidenceEllipse")</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># install.packages("ConfidenceEllipse")</span></span></code></pre></div>
+<p>Alternatively you can grab the development version from github using devtools:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
+<span><span class="co"># devtools::install_github("ChristianGoueguel/ConfidenceEllipse")</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org" class="external-link">magrittr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyselect.r-lib.org" class="external-link">tidyselect</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com" class="external-link">patchwork</a></span><span class="op">)</span></span>
@@ -100,15 +104,15 @@
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://purrr.tidyverse.org/" class="external-link">purrr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org" class="external-link">tidyr</a></span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://christiangoueguel.github.io/ConfidenceEllipse/" class="external-link">ConfidenceEllipse</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="dataset">Dataset<a class="anchor" aria-label="anchor" href="#dataset"></a>
 </h3>
 <p>The dataset is comprised of 13 different measurements for 180 archaeological glass vessels from different groups (Janssen, K.H.A., De Raedt, I., Schalm, O., Veeckman, J.: Microchim. Acta 15 (suppl.) (1998) 253-267. Compositions of 15th - 17th century archaeological glass vessels excavated in Antwerp.)</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"glass"</span>, package <span class="op">=</span> <span class="st">"ConfidenceEllipse"</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"glass"</span>, package <span class="op">=</span> <span class="st">"ConfidenceEllipse"</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">glass</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Rows: 180</span></span>
 <span><span class="co">#&gt; Columns: 14</span></span>
@@ -134,22 +138,22 @@
 <h4 id="classical-and-robust-confidence-ellipse">Classical and robust confidence ellipse<a class="anchor" aria-label="anchor" href="#classical-and-robust-confidence-ellipse"></a>
 </h4>
 <p>First, the <code>confidence_ellipse</code> function is used to compute coordinate points of the confidence ellipse and then the ellipse is plotted on a two-dimensional plot <code>x</code> and <code>y</code> of the data. Points that lie outside the ellipse are considered to be outliers, while points that lie within the ellipse are considered to be part of the underlying distribution with the specified confidence level <code>conf_level</code>.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ellipse_95</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/confidence_ellipse.html">confidence_ellipse</a></span><span class="op">(</span><span class="va">glass</span>, x <span class="op">=</span> <span class="va">SiO2</span>, y <span class="op">=</span> <span class="va">Na2O</span>, conf_level <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span></span>
 <span><span class="va">rob_ellipse_95</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/confidence_ellipse.html">confidence_ellipse</a></span><span class="op">(</span><span class="va">glass</span>, x <span class="op">=</span> <span class="va">SiO2</span>, y <span class="op">=</span> <span class="va">Na2O</span>, conf_level <span class="op">=</span> <span class="fl">0.95</span>, robust <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ellipse_95</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Rows: 361</span></span>
 <span><span class="co">#&gt; Columns: 2</span></span>
 <span><span class="co">#&gt; $ x &lt;dbl&gt; 74.45896, 74.35724, 74.25314, 74.14669, 74.03792, 73.92686, 73.81356…</span></span>
 <span><span class="co">#&gt; $ y &lt;dbl&gt; 21.99964, 22.08244, 22.16235, 22.23932, 22.31335, 22.38440, 22.45245…</span></span></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cutoff</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Chisquare.html" class="external-link">qchisq</a></span><span class="op">(</span><span class="fl">0.95</span>, df <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span> <span class="va">MDsquared</span> <span class="op">&lt;-</span> <span class="va">glass</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">SiO2</span>, <span class="va">Na2O</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/mahalanobis.html" class="external-link">mahalanobis</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colMeans</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cov</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span>, inverted <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plot1</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_path</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">ellipse_95</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"blue"</span>, linewidth <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span> <span class="op">+</span></span>
@@ -171,7 +175,7 @@
 <span>    title <span class="op">=</span> <span class="st">"Classical confidence ellipse\nat 95% confidence level"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x_mcd</span> <span class="op">&lt;-</span> <span class="va">glass</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">SiO2</span>, <span class="va">Na2O</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
@@ -181,7 +185,7 @@
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">SiO2</span>, <span class="va">Na2O</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/mahalanobis.html" class="external-link">mahalanobis</a></span><span class="op">(</span><span class="va">x_mcd</span><span class="op">$</span><span class="va">center</span>, <span class="va">x_mcd</span><span class="op">$</span><span class="va">cov</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plot2</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_path</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">rob_ellipse_95</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"blue"</span>, linewidth <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span> <span class="op">+</span></span>
@@ -203,15 +207,15 @@
 <span>    title <span class="op">=</span> <span class="st">"Robust confidence ellipse\nat 95% confidence level"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plot1</span> <span class="op">|</span> <span class="va">plot2</span></span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-13-1.png" width="100%"></p>
+<p><img src="reference/figures/README-unnamed-chunk-14-1.png" width="100%"></p>
 <div class="section level5">
 <h5 id="grouping">Grouping<a class="anchor" aria-label="anchor" href="#grouping"></a>
 </h5>
 <p>For grouping bivariate data, the <code>.group_by</code> argument can be used if the data contains an unique grouping variable (<code>.group_by = NULL</code> by default). When a grouping variable is provided, the function will compute the ellipses separately for each level of the factor, allowing you to explore potential differences or patterns within subgroups of the data.</p>
 <p>It’s important to note that the grouping variable should be appropriately coded as a factor before passing it to the <code>.group_by</code> argument. If the variable is currently stored as a character or numeric type, you may need to convert it to a factor using functions like <code><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor()</a></code> or <code><a href="https://forcats.tidyverse.org/reference/as_factor.html" class="external-link">forcats::as_factor()</a></code>.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">rpca_scores</span> <span class="op">&lt;-</span> <span class="va">glass</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/where.html" class="external-link">where</a></span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span> <span class="op">)</span><span class="op"><a href="reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">pcaPP</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pcaPP/man/PCAproj.html" class="external-link">PCAproj</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"qn"</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
@@ -219,9 +223,9 @@
 <span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>glassType <span class="op">=</span> <span class="va">glass</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">glassType</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span>PC1 <span class="op">=</span> <span class="va">Comp.1</span>, PC2 <span class="op">=</span> <span class="va">Comp.2</span><span class="op">)</span> </span></code></pre></div>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ellipse_pca</span> <span class="op">&lt;-</span> <span class="va">rpca_scores</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="reference/confidence_ellipse.html">confidence_ellipse</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">PC1</span>, y <span class="op">=</span> <span class="va">PC2</span>, .group_by <span class="op">=</span> <span class="va">glassType</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ellipse_pca</span> <span class="op">&lt;-</span> <span class="va">rpca_scores</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="reference/confidence_ellipse.html">confidence_ellipse</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">PC1</span>, y <span class="op">=</span> <span class="va">PC2</span>, .group_by <span class="op">=</span> <span class="va">glassType</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">rpca_scores</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">PC1</span>, y <span class="op">=</span> <span class="va">PC2</span>, color <span class="op">=</span> <span class="va">glassType</span>, shape <span class="op">=</span> <span class="va">glassType</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">3L</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_path</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">ellipse_pca</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, color <span class="op">=</span> <span class="va">glassType</span><span class="op">)</span>, linewidth <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span> <span class="op">+</span></span>
@@ -229,16 +233,16 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"PC1"</span>, y <span class="op">=</span> <span class="st">"PC2"</span>, title <span class="op">=</span> <span class="st">"Principal component analysis"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-16-1.png" width="100%"></p>
+<p><img src="reference/figures/README-unnamed-chunk-17-1.png" width="100%"></p>
 </div>
 </div>
 <div class="section level4">
 <h4 id="ellipsoid">Ellipsoid<a class="anchor" aria-label="anchor" href="#ellipsoid"></a>
 </h4>
 <p>The <code>confidence_ellipsoid</code> function accepts an additional variable <code>z</code> and computes the ellipsoid for trivariate data.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ellipsoid_grp</span> <span class="op">&lt;-</span> <span class="va">glass</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="reference/confidence_ellipsoid.html">confidence_ellipsoid</a></span><span class="op">(</span><span class="va">SiO2</span>, <span class="va">Na2O</span>, <span class="va">Fe2O3</span>, <span class="va">glassType</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ellipsoid_grp</span> <span class="op">&lt;-</span> <span class="va">glass</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="reference/confidence_ellipsoid.html">confidence_ellipsoid</a></span><span class="op">(</span><span class="va">SiO2</span>, <span class="va">Na2O</span>, <span class="va">Fe2O3</span>, <span class="va">glassType</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ellipsoid_grp</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Rows: 10,000</span></span>
 <span><span class="co">#&gt; Columns: 4</span></span>
@@ -246,7 +250,7 @@
 <span><span class="co">#&gt; $ y         &lt;dbl&gt; 14.51964, 14.51964, 14.51964, 14.51964, 14.51964, 14.51964, …</span></span>
 <span><span class="co">#&gt; $ z         &lt;dbl&gt; 0.5971494, 0.5971494, 0.5971494, 0.5971494, 0.5971494, 0.597…</span></span>
 <span><span class="co">#&gt; $ glassType &lt;fct&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …</span></span></code></pre></div>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">rgl</span><span class="fu">::</span><span class="fu"><a href="https://dmurdoch.github.io/rgl/dev/reference/setupKnitr.html" class="external-link">setupKnitr</a></span><span class="op">(</span>autoprint <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="fu">rgl</span><span class="fu">::</span><span class="fu"><a href="https://dmurdoch.github.io/rgl/dev/reference/plot3d.html" class="external-link">plot3d</a></span><span class="op">(</span></span>
 <span>  x <span class="op">=</span> <span class="va">ellipsoid_grp</span><span class="op">$</span><span class="va">x</span>, </span>
@@ -267,7 +271,7 @@
 <span>  size <span class="op">=</span> <span class="fl">5</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="fu">rgl</span><span class="fu">::</span><span class="fu"><a href="https://dmurdoch.github.io/rgl/dev/reference/viewpoint.html" class="external-link">view3d</a></span><span class="op">(</span>theta <span class="op">=</span> <span class="fl">260</span>, phi <span class="op">=</span> <span class="fl">30</span>, fov <span class="op">=</span> <span class="fl">60</span>, zoom <span class="op">=</span> <span class="fl">.85</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-19-1-rgl.png" width="100%"></p>
+<p><img src="reference/figures/README-unnamed-chunk-20-1-rgl.png" width="100%"></p>
 </div>
 </div>
 </div>
@@ -275,6 +279,7 @@
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
+<li><a href="https://cloud.r-project.org/package=ConfidenceEllipse" class="external-link">View on CRAN</a></li>
 <li><a href="https://github.com/ChristianGoueguel/ConfidenceEllipse/" class="external-link">Browse source code</a></li>
 <li><a href="https://github.com/ChristianGoueguel/ConfidenceEllipse/issues" class="external-link">Report a bug</a></li>
 </ul>
