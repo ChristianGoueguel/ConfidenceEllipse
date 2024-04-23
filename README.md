@@ -2,7 +2,7 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <!-- badges: start -->
 
-# ConfidenceEllipse <img src="man/figures/logo.png" align="right" height="195" alt="" />
+# ConfidenceEllipse <img src="man/figures/logo.png" align="right" height="159" alt="" />
 
 [![R-CMD-check](https://github.com/ChristianGoueguel/ConfidenceEllipse/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ChristianGoueguel/ConfidenceEllipse/actions/workflows/R-CMD-check.yaml)
 [![Project Status: Active – The project has reached a stable, usable
