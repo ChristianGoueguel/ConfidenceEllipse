@@ -129,22 +129,9 @@ cutoff <- qchisq(0.95, df = 2)
 plot1 <- 
   ggplot() +
   geom_path(data = ellipse_95, aes(x = x, y = y), color = "blue", linewidth = 1L) +
-  geom_point(
-    data = glass %>% 
-      mutate(md = MDsquared) %>%
-      filter(md <= cutoff),
-    aes(x = SiO2, y = Na2O),
-    shape = 21L, color = "black", fill = "lightblue", size = 3L) +
-  geom_point(
-    data = glass %>% 
-      mutate(md = MDsquared) %>%
-      filter(md > cutoff),
-    aes(x = SiO2, y = Na2O),
-    shape = 21L, color = "black", fill = "gold", size = 3L) +
-  labs(
-    x = "SiO2 (wt.%)", 
-    y = "Na2O (wt.%)",
-    title = "Classical confidence ellipse\nat 95% confidence level") +
+  geom_point(data = glass %>% mutate(md = MDsquared) %>% filter(md <= cutoff), aes(x = SiO2, y = Na2O), shape = 21L, color = "black", fill = "lightblue", size = 3L) +
+  geom_point(data = glass %>% mutate(md = MDsquared) %>% filter(md > cutoff), aes(x = SiO2, y = Na2O), shape = 21L, color = "black", fill = "gold", size = 3L) +
+  labs(x = "SiO2 (wt.%)", y = "Na2O (wt.%)", title = "Classical confidence ellipse\nat 95% confidence level") +
   theme_bw() +
   theme(legend.position = "none")
 ```
@@ -154,7 +141,9 @@ x_mcd <- glass %>%
   select(SiO2, Na2O) %>%
   as.matrix() %>%
   robustbase::covMcd()
+```
 
+``` r
 rob_MDsquared <- glass %>%
   select(SiO2, Na2O) %>%
   as.matrix() %>%
@@ -165,22 +154,9 @@ rob_MDsquared <- glass %>%
 plot2 <- 
   ggplot() +
   geom_path(data = rob_ellipse_95, aes(x = x, y = y), color = "blue", linewidth = 1L) +
-  geom_point(
-    data = glass %>% 
-      mutate(md = rob_MDsquared) %>%
-      filter(md <= cutoff),
-    aes(x = SiO2, y = Na2O),
-    shape = 21L, color = "black", fill = "lightblue", size = 3L) +
-  geom_point(
-    data = glass %>% 
-      mutate(md = rob_MDsquared) %>%
-      filter(md > cutoff),
-    aes(x = SiO2, y = Na2O),
-    shape = 21L, color = "black", fill = "gold", size = 3L) +
-  labs(
-    x = "SiO2 (wt.%)", 
-    y = "Na2O (wt.%)",
-    title = "Robust confidence ellipse\nat 95% confidence level") +
+  geom_point(data = glass %>% mutate(md = rob_MDsquared) %>% filter(md <= cutoff), aes(x = SiO2, y = Na2O), shape = 21L, color = "black", fill = "lightblue", size = 3L) +
+  geom_point(data = glass %>% mutate(md = rob_MDsquared) %>% filter(md > cutoff), aes(x = SiO2, y = Na2O), shape = 21L, color = "black", fill = "gold", size = 3L) +
+  labs(x = "SiO2 (wt.%)", y = "Na2O (wt.%)", title = "Robust confidence ellipse\nat 95% confidence level") +
   theme_bw() +
   theme(legend.position = "none")
 ```
@@ -189,7 +165,7 @@ plot2 <-
 plot1 | plot2
 ```
 
-<img src="man/figures/README-unnamed-chunk-14-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-15-1.png" width="100%" />
 
 ##### Grouping
 
@@ -230,7 +206,7 @@ ggplot() +
   theme(legend.position = "none")
 ```
 
-<img src="man/figures/README-unnamed-chunk-17-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-18-1.png" width="100%" />
 
 #### Ellipsoid
 
@@ -274,4 +250,4 @@ rgl::points3d(
 rgl::view3d(theta = 260, phi = 30, fov = 60, zoom = .85)
 ```
 
-<img src="man/figures/README-unnamed-chunk-20-1-rgl.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-21-1-rgl.png" width="100%" />
