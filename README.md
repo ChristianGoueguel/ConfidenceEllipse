@@ -34,15 +34,15 @@ distribution.
 You can install `ConfidenceEllipse` from CRAN using:
 
 ``` r
-# install.packages("ConfidenceEllipse")
+install.packages("ConfidenceEllipse")
 ```
 
 Alternatively you can grab the development version from github using
 devtools:
 
 ``` r
-# install.packages("devtools")
-# devtools::install_github("ChristianGoueguel/ConfidenceEllipse")
+install.packages("devtools")
+devtools::install_github("ChristianGoueguel/ConfidenceEllipse")
 ```
 
 ## Example
@@ -165,7 +165,7 @@ plot2 <-
 plot1 | plot2
 ```
 
-<img src="man/figures/README-unnamed-chunk-15-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-13-1.png" width="100%" />
 
 ##### Grouping
 
@@ -206,7 +206,7 @@ ggplot() +
   theme(legend.position = "none")
 ```
 
-<img src="man/figures/README-unnamed-chunk-18-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-16-1.png" width="100%" />
 
 #### Ellipsoid
 
@@ -250,4 +250,4 @@ rgl::points3d(
 rgl::view3d(theta = 260, phi = 30, fov = 60, zoom = .85)
 ```
 
-<img src="man/figures/README-unnamed-chunk-21-1-rgl.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-19-1-rgl.png" width="100%" />
