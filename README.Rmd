@@ -33,6 +33,7 @@ MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/
 [![](https://cranlogs.r-pkg.org/badges/grand-total/ConfidenceEllipse)](https://cran.r-project.org/package=ConfidenceEllipse)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/ConfidenceEllipse)](https://CRAN.R-project.org/package=ConfidenceEllipse)
+[![HitCount](https://hits.dwyl.com/ChristianGoueguel/ConfidenceEllipse.svg?style=flat)](http://hits.dwyl.com/ChristianGoueguel/ConfidenceEllipse)
 
 <!-- badges: end -->
 
