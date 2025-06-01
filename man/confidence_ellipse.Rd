@@ -10,7 +10,8 @@ confidence_ellipse(
   y,
   .group_by = NULL,
   conf_level = 0.95,
-  robust = FALSE
+  robust = FALSE,
+  distribution = "normal"
 )
 }
 \arguments{
@@ -20,17 +21,47 @@ confidence_ellipse(
 
 \item{y}{column name for the y-axis variable.}
 
-\item{.group_by}{column name for the grouping variable (\code{NULL} by default). Note that this grouping variable must be a factor.}
+\item{.group_by}{column name for the grouping variable (\code{NULL} by default).
+Note that this grouping variable must be a factor.}
 
 \item{conf_level}{confidence level for the ellipse (0.95 by default).}
 
-\item{robust}{optional (\code{FALSE} by default). When set to \code{TRUE}, it indicates that robust estimation method is employed to calculate the coordinates of the ellipse. The location is the 1-step M-estimator with the biweight psi function. The scale is the Minimum Covariance Determinant (MCD) estimator. Raymaekers and Rousseeuw (2019).}
+\item{robust}{optional (\code{FALSE} by default). When set to \code{TRUE}, it indicates
+that robust estimation method is employed to calculate the coordinates of the ellipse.
+The location is estimated using a 1-step M-estimator with the biweight psi function,
+while the scale is estimated using the Minimum Covariance Determinant (MCD) estimator.
+This approach is more resistant to outliers and provides
+more reliable ellipse boundaries when the data contains extreme values or follows
+a non-normal distribution.}
+
+\item{distribution}{optional (\code{"normal"} by default). The distribution used to
+calculate the quantile for the ellipse. It can be either \code{"normal"} or \code{"hotelling"}.}
 }
 \value{
 Data frame of the coordinates points.
 }
 \description{
 Compute the coordinate points of confidence ellipses at a specified confidence level.
+}
+\details{
+The function computes the coordinates of the confidence ellipse based
+on the specified confidence level and the provided data. It can handle both classical
+and robust estimation methods, and it supports grouping by a factor variable.
+The \code{distribution} parameter controls the statistical approach used for ellipse
+calculation. The \code{"normal"} option uses the chi-square distribution quantile,
+which is appropriate when working with very large samples.
+Whereas the \code{"hotelling"} option uses Hotelling's T² distribution quantile.
+This approach accounts for uncertainty in estimating both mean and covariance
+from sample data, producing larger ellipses that better reflect sampling uncertainty.
+This is statistically more rigorous for smaller sample sizes where parameter
+estimation uncertainty is higher.
+
+The combination of \code{distribution = "hotelling"} and \code{robust = TRUE} offers the
+most conservative and statistically rigorous approach, particularly recommended
+for exploratory data analysis and when dealing with real-world datasets that may
+not meet ideal statistical assumptions. For very large samples, the default
+settings (\code{distribution = "normal"}, \code{robust = FALSE}) may be sufficient, as
+the differences between methods diminish with increasing sample size.
 }
 \examples{
 # Data
@@ -44,6 +75,12 @@ y = Na2O,
 .group_by = glassType
 )
 
+}
+\references{
+\itemize{
+\item Raymaekers, J., Rousseeuw P.J. (2019). Fast robust correlation for high dimensional data. Technometrics, 63(2), 184-198.
+\item Brereton, R. G. (2016). Hotelling’s T-squared distribution, its relationship to the F distribution and its use in multivariate space. Journal of Chemometrics, 30(1), 18–21.
+}
 }
 \author{
 Christian L. Goueguel
