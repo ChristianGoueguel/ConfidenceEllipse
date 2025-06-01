@@ -180,6 +180,7 @@ ggplot() +
   labs(x = "PC1", y = "PC2", title = "Principal component analysis") +
   theme_bw() +
   theme(
+    aspect.ratio = .7,
     panel.grid = element_blank(),
     legend.position = "none"
     )
