@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   confidence-ellipse: confidence-ellipse.html
   confidence-ellipsoid: confidence-ellipsoid.html
-last_built: 2025-06-01T06:13Z
+last_built: 2025-06-01T06:21Z
 urls:
   reference: https://christiangoueguel.github.io/ConfidenceEllipse/reference
   article: https://christiangoueguel.github.io/ConfidenceEllipse/articles
