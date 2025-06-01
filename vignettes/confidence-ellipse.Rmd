@@ -66,18 +66,18 @@ ggplot() +
   xlim(50, 80) +
   ylim(-.5, 5) +
   labs(
-    x = "SiO2 (wt.%)", 
+    x = "SiO2 (wt.%)",
     y = "Al2O3 (wt.%)",
     title = "Confidence ellipses",
     caption = "
     Figure 1: Comparison between classical and robust confidence ellipse."
-    ) +
+  ) +
   theme_bw() +
   theme(
     aspect.ratio = .7,
     panel.grid = element_blank(),
     legend.position = "none"
-    )
+  )
 ```
 
 # Group-based confidence ellipses
@@ -104,38 +104,38 @@ ellipse_grph %>% print()
 
 ```{r}
 p1 <- ggplot() +
-  geom_polygon(data = ellipse_grp, aes(x = x, y = y, fill = glassType), color= "black", alpha = .45) +
+  geom_polygon(data = ellipse_grp, aes(x = x, y = y, fill = glassType), color = "black", alpha = .45) +
   geom_point(data = glass, aes(x = SiO2, y = Na2O, color = glassType, shape = glassType), size = 3L) +
   scale_fill_brewer(palette = "Set1", direction = 1) +
   scale_color_brewer(palette = "Set1", direction = 1) +
   labs(
-    x = "SiO2 (wt.%)", 
+    x = "SiO2 (wt.%)",
     y = "Na2O (wt.%)"
-    ) +
+  ) +
   theme_bw() +
   theme(
     panel.grid = element_blank(),
     legend.position = "none"
-    )
+  )
 ```
 
 ```{r}
 p2 <- ggplot() +
-  geom_polygon(data = ellipse_grph, aes(x = x, y = y, fill = glassType), color= "black", alpha = .45) +
+  geom_polygon(data = ellipse_grph, aes(x = x, y = y, fill = glassType), color = "black", alpha = .45) +
   geom_point(data = glass, aes(x = SiO2, y = Na2O, color = glassType, shape = glassType), size = 3L) +
   scale_fill_brewer(palette = "Set1", direction = 1) +
   scale_color_brewer(palette = "Set1", direction = 1) +
   labs(
-    x = "SiO2 (wt.%)", 
+    x = "SiO2 (wt.%)",
     y = "Na2O (wt.%)",
     caption = "
     Figure 2: Comparison between normal distribution (left) and Hotelling's T² distribution (right) ellipses."
-    ) +
+  ) +
   theme_bw() +
   theme(
     panel.grid = element_blank(),
     legend.position = "none"
-    )
+  )
 ```
 
 ```{r}

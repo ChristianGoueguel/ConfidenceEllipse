@@ -48,11 +48,11 @@
 #' # Confidence ellipsoid
 #' ellipsoid <- confidence_ellipsoid(.data = glass, x = SiO2, y = Na2O, z = Fe2O3)
 #' ellipsoid_grp <- confidence_ellipsoid(
-#' .data = glass,
-#' x = SiO2,
-#' y = Na2O,
-#' z = Fe2O3,
-#' .group_by = glassType
+#'   .data = glass,
+#'   x = SiO2,
+#'   y = Na2O,
+#'   z = Fe2O3,
+#'   .group_by = glassType
 #' )
 #'
 confidence_ellipsoid <- function(.data, x, y, z, .group_by = NULL, conf_level = 0.95, robust = FALSE, distribution = "normal") {
@@ -73,7 +73,9 @@ confidence_ellipsoid <- function(.data, x, y, z, .group_by = NULL, conf_level = 
   }
 
   if (rlang::quo_is_null(rlang::enquo(.group_by))) {
-    selected_data <- .data %>% dplyr::select({{x}}, {{y}}, {{z}}) %>% as.matrix()
+    selected_data <- .data %>%
+      dplyr::select({{ x }}, {{ y }}, {{ z }}) %>%
+      as.matrix()
     ellipsoid_coord <- transform_3d(selected_data, conf_level, robust, distribution)
     colnames(ellipsoid_coord) <- c("x", "y", "z")
     ellipsoid_coord %<>% tibble::as_tibble()
@@ -82,8 +84,8 @@ confidence_ellipsoid <- function(.data, x, y, z, .group_by = NULL, conf_level = 
       stop("'.group_by' must be a factor.")
     } else {
       nested_tbl <- .data %>%
-        dplyr::select({{.group_by}}, {{x}}, {{y}}, {{z}}) %>%
-        dplyr::group_by({{.group_by}}) %>%
+        dplyr::select({{ .group_by }}, {{ x }}, {{ y }}, {{ z }}) %>%
+        dplyr::group_by({{ .group_by }}) %>%
         tidyr::nest() %>%
         dplyr::ungroup()
 
@@ -95,7 +97,8 @@ confidence_ellipsoid <- function(.data, x, y, z, .group_by = NULL, conf_level = 
       ellipsoid_coord <- tibble::tibble(
         x = ellipsoid_tbl$data[, 1],
         y = ellipsoid_tbl$data[, 2],
-        z = ellipsoid_tbl$data[, 3]) %>%
+        z = ellipsoid_tbl$data[, 3]
+      ) %>%
         dplyr::bind_cols(ellipsoid_tbl[1])
     }
   }
@@ -120,8 +123,7 @@ transform_3d <- function(.x, conf_level, robust, distribution) {
   }
   if (any(is.na(cov_matrix))) {
     stop("Covariance matrix contains NA values.")
-  }
-  else {
+  } else {
     eig <- eigen(cov_matrix)
     theta <- seq(0, 2 * pi, length.out = 50)
     phi <- seq(0, pi, length.out = 50)
@@ -139,4 +141,3 @@ transform_3d <- function(.x, conf_level, robust, distribution) {
     return(result)
   }
 }
-

@@ -48,14 +48,13 @@
 #' # Confidence ellipse
 #' ellipse <- confidence_ellipse(.data = glass, x = SiO2, y = Na2O)
 #' ellipse_grp <- confidence_ellipse(
-#' .data = glass,
-#' x = SiO2,
-#' y = Na2O,
-#' .group_by = glassType
+#'   .data = glass,
+#'   x = SiO2,
+#'   y = Na2O,
+#'   .group_by = glassType
 #' )
 #'
 confidence_ellipse <- function(.data, x, y, .group_by = NULL, conf_level = 0.95, robust = FALSE, distribution = "normal") {
-
   if (missing(.data)) {
     stop("Missing 'data' argument.")
   }
@@ -73,27 +72,29 @@ confidence_ellipse <- function(.data, x, y, .group_by = NULL, conf_level = 0.95,
   }
 
   if (rlang::quo_is_null(rlang::enquo(.group_by))) {
-    selected_data <- .data %>% dplyr::select({{x}}, {{y}}) %>% as.matrix()
+    selected_data <- .data %>%
+      dplyr::select({{ x }}, {{ y }}) %>%
+      as.matrix()
     ellipse_coord <- transform_2d(selected_data, conf_level, robust, distribution)
     colnames(ellipse_coord) <- c("x", "y")
     ellipse_coord %<>% tibble::as_tibble()
-    }
-  else {
+  } else {
     if (!is.factor(.data[[deparse(substitute(.group_by))]])) {
       stop("'.group_by' must be a factor.")
     } else {
       nested_tbl <- .data %>%
-        dplyr::select({{.group_by}}, {{x}}, {{y}}) %>%
-        dplyr::group_by({{.group_by}}) %>%
+        dplyr::select({{ .group_by }}, {{ x }}, {{ y }}) %>%
+        dplyr::group_by({{ .group_by }}) %>%
         tidyr::nest() %>%
         dplyr::ungroup()
       data <- NULL
-      ellipse_tbl<- nested_tbl %>%
+      ellipse_tbl <- nested_tbl %>%
         dplyr::mutate(data = purrr::map(data, ~ transform_2d(as.matrix(.x), conf_level, robust, distribution))) %>%
         tidyr::unnest(data)
       ellipse_coord <- tibble::tibble(
         x = ellipse_tbl$data[, 1],
-        y = ellipse_tbl$data[, 2]) %>%
+        y = ellipse_tbl$data[, 2]
+      ) %>%
         dplyr::bind_cols(ellipse_tbl[1])
     }
   }
@@ -118,8 +119,7 @@ transform_2d <- function(.x, conf_level, robust, distribution) {
   }
   if (any(is.na(cov_matrix))) {
     stop("Covariance matrix contains NA values.")
-  }
-  else {
+  } else {
     eig <- eigen(cov_matrix)
     theta <- (2 * pi * seq(0, 360, 1)) / 360
     if (distribution == "normal") {
@@ -134,5 +134,3 @@ transform_2d <- function(.x, conf_level, robust, distribution) {
     return(result)
   }
 }
-
-

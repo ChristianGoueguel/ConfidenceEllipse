@@ -20,8 +20,10 @@ test_that("function stops with non-numeric conf_level", {
       .data = glass,
       x = BaO,
       y = PbO,
-      conf_level = "high"),
-    "'conf_level' must be numeric.")
+      conf_level = "high"
+    ),
+    "'conf_level' must be numeric."
+  )
 })
 test_that("function stops with invalid conf_level", {
   expect_error(
@@ -29,15 +31,19 @@ test_that("function stops with invalid conf_level", {
       .data = glass,
       x = BaO,
       y = PbO,
-      conf_level = 37),
-    "'conf_level' must be between 0 and 1.")
+      conf_level = 37
+    ),
+    "'conf_level' must be between 0 and 1."
+  )
   expect_error(
     confidence_ellipsoid(
       .data = glass,
       x = BaO,
       y = PbO,
-      conf_level = -.95),
-    "'conf_level' must be between 0 and 1.")
+      conf_level = -.95
+    ),
+    "'conf_level' must be between 0 and 1."
+  )
 })
 test_that("function returns a data frame or tibble", {
   result <- confidence_ellipse(glass, BaO, PbO)
@@ -53,11 +59,11 @@ test_that("function works with grouping factor", {
     .data = glass,
     x = BaO,
     y = PbO,
-    .group_by = glassType)
+    .group_by = glassType
+  )
   expect_true(is_tibble(result))
 })
 test_that("function stops with NA's in covariance matrix", {
   df <- data.frame(x = 1:10, y = c(11, 2, 4, NA, 6, 3, 1, NA, NA, 10))
   expect_error(confidence_ellipse(df, x, y), "Covariance matrix contains NA values.")
 })
-
