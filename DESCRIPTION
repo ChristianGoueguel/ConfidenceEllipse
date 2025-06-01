@@ -1,7 +1,7 @@
 Package: ConfidenceEllipse
 Type: Package
 Title: Computation of 2D and 3D Elliptical Joint Confidence Regions
-Version: 1.0.0
+Version: 1.1.0
 Authors@R: 
     person(given = "Christian L.",
            family = "Goueguel",
