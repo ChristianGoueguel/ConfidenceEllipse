@@ -60,7 +60,7 @@ estimation uncertainty is higher.
 
 The combination of \code{distribution = "hotelling"} and \code{robust = TRUE} offers the
 most conservative and statistically rigorous approach, particularly recommended
-for exploratory data analysis and when dealing with real-world datasets that may
+for exploratory data analysis and when dealing with datasets that may
 not meet ideal statistical assumptions. For very large samples, the default
 settings (\code{distribution = "normal"}, \code{robust = FALSE}) may be sufficient, as
 the differences between methods diminish with increasing sample size.

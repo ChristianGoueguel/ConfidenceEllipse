@@ -59,19 +59,9 @@ ggplot() +
   geom_path(data = ellipse99_rob, aes(x = x, y = y), color = "red", linewidth = 1L, linetype = "solid") +
   geom_path(data = ellipse95_rob, aes(x = x, y = y), color = "blue", linewidth = 1L, linetype = "solid") +
   geom_path(data = ellipse90_rob, aes(x = x, y = y), color = "green", linewidth = 1L, linetype = "solid") +
-  geom_point(data = glass, aes(x = SiO2, y = Al2O3), color = "black", size = 3L) +
-  annotate(
-    "text",
-    x = 70, y = 3.5,
-    label = "Classical confidence ellipses",
-    color = "black", size = 4
-    ) +
-  annotate(
-    "text",
-    x = 74, y = 2.3,
-    label = "Robust confidence ellipses",
-    color = "black", size = 4
-    ) +
+  geom_point(data = glass, aes(x = SiO2, y = Al2O3), fill = "grey", color = "black", shape = 21, size = 3L) +
+  annotate("text", x = 70, y = 3.5, label = "Classical confidence ellipses", color = "black", size = 4) +
+  annotate("text", x = 74, y = 2.3, label = "Robust confidence ellipses", color = "black", size = 4) +
   scale_color_brewer(palette = "Set1", direction = 1) +
   xlim(50, 80) +
   ylim(-.5, 5) +
@@ -101,10 +91,15 @@ The function includes a `distribution` argument that allows users to choose betw
 
 ```{r message=FALSE, warning=FALSE}
 ellipse_grp <- confidence_ellipse(glass, x = SiO2, y = Na2O, .group_by = glassType)
+ellipse_grph <- confidence_ellipse(glass, x = SiO2, y = Na2O, .group_by = glassType, distribution = "hotelling")
 ```
 
 ```{r}
-ellipse_grp %>% glimpse()
+ellipse_grp %>% print()
+```
+
+```{r}
+ellipse_grph %>% print()
 ```
 
 ```{r}
@@ -119,14 +114,9 @@ p1 <- ggplot() +
     ) +
   theme_bw() +
   theme(
-    aspect.ratio = .7,
     panel.grid = element_blank(),
     legend.position = "none"
     )
-```
-
-```{r}
-ellipse_grph <- confidence_ellipse(glass, x = SiO2, y = Na2O, .group_by = glassType, distribution = "hotelling")
 ```
 
 ```{r}
@@ -143,7 +133,6 @@ p2 <- ggplot() +
     ) +
   theme_bw() +
   theme(
-    aspect.ratio = .7,
     panel.grid = element_blank(),
     legend.position = "none"
     )
@@ -157,6 +146,6 @@ patchwork::wrap_plots(p1, p2, ncol = 2) +
   )
 ```
 
-As shown in the comparative plots, the difference between these approaches can be substantial, especially for smaller sample sizes. The Hotelling's T² ellipses provide more realistic confidence regions that properly account for the fact that we're estimating population parameters from sample data.
+As shown in the comparative plots, the difference between these approaches can be substantial, especially for smaller sample sizes. The Hotelling's T² ellipses provide more realistic confidence regions that properly account for the fact that we're estimating population parameters from sample data. As the sample size increases the differences between both approaches diminish.
 
 
