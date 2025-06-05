@@ -35,7 +35,7 @@ MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/
 status](https://www.r-pkg.org/badges/version/ConfidenceEllipse)](https://CRAN.R-project.org/package=ConfidenceEllipse)
 <!-- badges: end -->
 
-The `ConfidenceEllipse` package computes the coordinate points of confidence region for a given bivariate and trivariate dataset. The size of the elliptical region is determined by the confidence level, and the shape is determined by the covariance matrix. The confidence level is usually chosen to be 95% or 99%, and the resulting confidence region contains the points that are expected to lie within the multivariate distribution.
+The `ConfidenceEllipse` package computes the coordinate points of confidence region for a given bivariate and trivariate dataset. The size of the elliptical region is determined by the confidence level, and the shape is determined by the covariance matrix. The confidence level, typically 95% or 99%, indicates the probability that the ellipse contains the true mean vector, assuming a distribution.
 
 ## Installation
 
@@ -87,11 +87,11 @@ glass %>% glimpse()
 ### Confidence Region
 #### Classical and robust confidence ellipses
 
-First, the `confidence_ellipse` function is used to compute coordinate points of the confidence ellipse and then the ellipse is plotted on a two-dimensional plot `x` and `y` of the data. Points that lie outside the ellipse are considered to be outliers, while points that lie within the ellipse are considered to be part of the underlying distribution with the specified confidence level `conf_level`.
+First, the `confidence_ellipse` function is used to compute coordinate points of the confidence ellipse and then the ellipse is plotted on a two-dimensional plot `x`-`y` of the data. It shows a region that, with a specified confidence level `conf_level`, is expected to contain the population mean vector of a bivariate distribution.
 
 ```{r message=FALSE, warning=FALSE}
-ellipse_95 <- confidence_ellipse(glass, x = SiO2, y = Na2O, conf_level = 0.95)
-rob_ellipse_95 <- confidence_ellipse(glass, x = SiO2, y = Na2O, conf_level = 0.95, robust = TRUE)
+ellipse_95 <- confidence_ellipse(glass, x = SiO2, y = Na2O, conf_level = 0.95, robust = FALSE, distribution = "normal")
+rob_ellipse_95 <- confidence_ellipse(glass, x = SiO2, y = Na2O, conf_level = 0.95, robust = TRUE, distribution = "normal")
 ```
 
 ```{r message=FALSE, warning=FALSE}

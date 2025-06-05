@@ -23,10 +23,9 @@ status](https://www.r-pkg.org/badges/version/ConfidenceEllipse)](https://CRAN.R-
 The `ConfidenceEllipse` package computes the coordinate points of
 confidence region for a given bivariate and trivariate dataset. The size
 of the elliptical region is determined by the confidence level, and the
-shape is determined by the covariance matrix. The confidence level is
-usually chosen to be 95% or 99%, and the resulting confidence region
-contains the points that are expected to lie within the multivariate
-distribution.
+shape is determined by the covariance matrix. The confidence level,
+typically 95% or 99%, indicates the probability that the ellipse
+contains the true mean vector, assuming a distribution.
 
 ## Installation
 
@@ -98,14 +97,13 @@ glass %>% glimpse()
 
 First, the `confidence_ellipse` function is used to compute coordinate
 points of the confidence ellipse and then the ellipse is plotted on a
-two-dimensional plot `x` and `y` of the data. Points that lie outside
-the ellipse are considered to be outliers, while points that lie within
-the ellipse are considered to be part of the underlying distribution
-with the specified confidence level `conf_level`.
+two-dimensional plot `x`-`y` of the data. It shows a region that, with a
+specified confidence level `conf_level`, is expected to contain the
+population mean vector of a bivariate distribution.
 
 ``` r
-ellipse_95 <- confidence_ellipse(glass, x = SiO2, y = Na2O, conf_level = 0.95)
-rob_ellipse_95 <- confidence_ellipse(glass, x = SiO2, y = Na2O, conf_level = 0.95, robust = TRUE)
+ellipse_95 <- confidence_ellipse(glass, x = SiO2, y = Na2O, conf_level = 0.95, robust = FALSE, distribution = "normal")
+rob_ellipse_95 <- confidence_ellipse(glass, x = SiO2, y = Na2O, conf_level = 0.95, robust = TRUE, distribution = "normal")
 ```
 
 ``` r
@@ -118,14 +116,14 @@ ellipse_95 %>% glimpse()
 
 ``` r
 cutoff <- qchisq(0.95, df = 2)
- MDsquared <- glass %>%
+MDsquared <- glass %>%
   select(SiO2, Na2O) %>%
   as.matrix() %>%
   mahalanobis(colMeans(.), cov(.), inverted = FALSE)
 ```
 
 ``` r
-plot1 <- 
+plot1 <-
   ggplot() +
   geom_path(data = ellipse_95, aes(x = x, y = y), color = "blue", linewidth = 1L) +
   geom_point(data = glass %>% mutate(md = MDsquared) %>% filter(md <= cutoff), aes(x = SiO2, y = Na2O), shape = 21L, color = "black", fill = "lightblue", size = 3L) +
@@ -135,7 +133,7 @@ plot1 <-
   theme(
     panel.grid = element_blank(),
     legend.position = "none"
-    )
+  )
 ```
 
 ``` r
@@ -153,7 +151,7 @@ rob_MDsquared <- glass %>%
 ```
 
 ``` r
-plot2 <- 
+plot2 <-
   ggplot() +
   geom_path(data = rob_ellipse_95, aes(x = x, y = y), color = "blue", linewidth = 1L) +
   geom_point(data = glass %>% mutate(md = rob_MDsquared) %>% filter(md <= cutoff), aes(x = SiO2, y = Na2O), shape = 21L, color = "black", fill = "lightblue", size = 3L) +
@@ -163,7 +161,7 @@ plot2 <-
   theme(
     panel.grid = element_blank(),
     legend.position = "none"
-    )
+  )
 ```
 
 ``` r
@@ -189,12 +187,12 @@ type, you may need to convert it to a factor using functions like
 
 ``` r
 rpca_scores <- glass %>%
-  select(where(is.numeric) )%>% 
+  select(where(is.numeric)) %>%
   pcaPP::PCAproj(method = "qn") %>%
   pluck("scores") %>%
   as_tibble() %>%
   mutate(glassType = glass %>% pull(glassType)) %>%
-  rename(PC1 = Comp.1, PC2 = Comp.2) 
+  rename(PC1 = Comp.1, PC2 = Comp.2)
 ```
 
 ``` r
@@ -212,7 +210,7 @@ ggplot() +
     aspect.ratio = .7,
     panel.grid = element_blank(),
     legend.position = "none"
-    )
+  )
 ```
 
 <img src="man/figures/README-unnamed-chunk-16-1.png" width="100%" />
@@ -239,23 +237,23 @@ ellipsoid_grp %>% glimpse()
 ``` r
 rgl::setupKnitr(autoprint = TRUE)
 rgl::plot3d(
-  x = ellipsoid_grp$x, 
-  y = ellipsoid_grp$y, 
+  x = ellipsoid_grp$x,
+  y = ellipsoid_grp$y,
   z = ellipsoid_grp$z,
-  xlab = "SiO2 (wt.%)", 
-  ylab = "Na2O (wt.%)", 
+  xlab = "SiO2 (wt.%)",
+  ylab = "Na2O (wt.%)",
   zlab = "Fe2O3 (wt.%)",
-  type = "s", 
+  type = "s",
   radius = 0.03,
   col = as.numeric(ellipsoid_grp$glassType)
-  )
+)
 rgl::points3d(
-  x = glass$SiO2, 
-  y = glass$Na2O, 
-  z = glass$Fe2O3, 
+  x = glass$SiO2,
+  y = glass$Na2O,
+  z = glass$Fe2O3,
   col = as.numeric(glass$glassType),
   size = 5
-  )
+)
 rgl::view3d(theta = 260, phi = 30, fov = 60, zoom = .85)
 ```
 

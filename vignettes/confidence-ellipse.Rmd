@@ -33,7 +33,7 @@ data(glass, package = "ConfidenceEllipse")
 
 # Coordinate points
 
-The `confidence_ellipse` function is used to compute the coordinate points of the confidence ellipse and then the ellipse is plotted on a two-dimensional plot `x` and `y` of the data. Points that lie within the ellipse are considered to be part of the underlying distribution with the specified confidence level `conf_level`.
+The `confidence_ellipse` function is used to compute the coordinate points of the confidence ellipse and then the ellipse is plotted on a two-dimensional plot `x` and `y` of the data. The ellipse represents a region that, with a specified confidence level `conf_level`, is expected to contain the true mean of the bivariate distribution.
 
 ```{r message=FALSE, warning=FALSE}
 ellipse99 <- confidence_ellipse(glass, x = SiO2, y = Al2O3, conf_level = 0.99)
