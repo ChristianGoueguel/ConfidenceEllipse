@@ -64,7 +64,7 @@
       <img src="../logo.png" class="logo" alt=""><h1>Confidence Ellipse</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/ChristianGoueguel/ConfidenceEllipse/blob/v1.1.0/vignettes/confidence-ellipse.Rmd" class="external-link"><code>vignettes/confidence-ellipse.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/ChristianGoueguel/ConfidenceEllipse/blob/main/vignettes/confidence-ellipse.Rmd" class="external-link"><code>vignettes/confidence-ellipse.Rmd</code></a></small>
       <div class="d-none name"><code>confidence-ellipse.Rmd</code></div>
     </div>
 
@@ -90,9 +90,9 @@ Its size and shape are determined by the chosen confidence level (e.g.,
 <p>The <code>confidence_ellipse</code> function is used to compute the
 coordinate points of the confidence ellipse and then the ellipse is
 plotted on a two-dimensional plot <code>x</code> and <code>y</code> of
-the data. Points that lie within the ellipse are considered to be part
-of the underlying distribution with the specified confidence level
-<code>conf_level</code>.</p>
+the data. The ellipse represents a region that, with a specified
+confidence level <code>conf_level</code>, is expected to contain the
+true mean of the bivariate distribution.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ellipse99</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/confidence_ellipse.html">confidence_ellipse</a></span><span class="op">(</span><span class="va">glass</span>, x <span class="op">=</span> <span class="va">SiO2</span>, y <span class="op">=</span> <span class="va">Al2O3</span>, conf_level <span class="op">=</span> <span class="fl">0.99</span><span class="op">)</span></span>
 <span><span class="va">ellipse95</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/confidence_ellipse.html">confidence_ellipse</a></span><span class="op">(</span><span class="va">glass</span>, x <span class="op">=</span> <span class="va">SiO2</span>, y <span class="op">=</span> <span class="va">Al2O3</span>, conf_level <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span></span>
